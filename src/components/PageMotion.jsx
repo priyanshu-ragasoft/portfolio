@@ -1,0 +1,40 @@
+import { useRef } from 'react'
+import { ScrollTrigger } from '../animations/gsapConfig'
+import { playHero } from '../animations/heroAnimations'
+import { initImageMotion } from '../animations/imageAnimations'
+import { initInteractions } from '../animations/interactions'
+import { initRoadmap } from '../animations/roadmap'
+import { initScenes } from '../animations/scenes'
+import { initScrollReveals } from '../animations/scrollAnimations'
+import { initTextReveals } from '../animations/textAnimations'
+import { useGSAP } from '../hooks/useGSAP'
+
+export default function PageMotion() {
+  const markerRef = useRef(null)
+
+  useGSAP(() => {
+    const scope = markerRef.current?.closest('[data-motion-root]')
+    if (!scope) return undefined
+
+    playHero(scope)
+    initRoadmap(scope)
+    initScenes(scope)
+    initScrollReveals(scope)
+    initTextReveals(scope)
+    initImageMotion(scope)
+    const release = initInteractions(scope)
+
+    const refresh = () => ScrollTrigger.refresh()
+    scope.querySelectorAll('img').forEach((img) => {
+      if (!img.complete) img.addEventListener('load', refresh, { once: true })
+    })
+    requestAnimationFrame(refresh)
+
+    return () => {
+      release?.()
+      scope.querySelectorAll('img').forEach((img) => img.removeEventListener('load', refresh))
+    }
+  }, [])
+
+  return <span ref={markerRef} className="hidden" />
+}
