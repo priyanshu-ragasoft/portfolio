@@ -64,16 +64,22 @@ export default function Introduction() {
             </Link>
           </div>
 
-          <aside
+          <aside className="lg:col-span-5 lg:col-start-8">
+            <div className="relative mx-auto w-full max-w-[380px]">
+              <div
+                className="pointer-events-none absolute -inset-2 rounded-[2rem] border border-[#C9A15A]/40"
+                aria-hidden="true"
+              />
+          <div
             data-intro-plate
-            className="group relative overflow-hidden bg-ink px-7 py-8 text-paper lg:col-span-5 lg:col-start-8 lg:px-8 lg:py-10 rounded-xl cursor-pointer select-none transition-all duration-500 hover:shadow-2xl hover:shadow-black/70 border border-white/5 hover:border-[#C9A15A]/40"
+            className="group relative aspect-[4/5] cursor-pointer select-none overflow-hidden rounded-[1.65rem] border border-white/10 bg-ink text-paper shadow-[0_24px_50px_-28px_rgba(20,19,17,0.55)] transition-shadow duration-500 hover:shadow-[0_28px_60px_-24px_rgba(20,19,17,0.7)]"
           >
             {/* Full-color portrait revealed on hover */}
             <img
-              src={profile.portrait}
+              src={profile.office}
               alt={profile.name}
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_12%] opacity-30 grayscale-[45%] transition-all duration-700 ease-[cubic-bezier(0.2,1,0.3,1)] group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-30 grayscale-[45%] transition-all duration-700 ease-[cubic-bezier(0.2,1,0.3,1)] group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
             />
 
             {/* Base ambient dark gradient that fades on hover */}
@@ -96,7 +102,7 @@ export default function Introduction() {
             </div>
 
             {/* Editorial Text Content (Smoothly wipes / fades out like a shutter on hover) */}
-            <div className="relative z-10 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:opacity-0 group-hover:scale-95 group-hover:translate-y-3 group-hover:pointer-events-none">
+            <div className="absolute inset-x-0 bottom-0 z-10 px-6 pt-16 pb-6 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:pointer-events-none group-hover:translate-y-3 group-hover:opacity-0 sm:px-7 sm:pb-7">
               <p className="text-[0.65rem] font-medium uppercase tracking-[0.22em] text-[#C9A15A]">
                 A working standard
               </p>
@@ -118,14 +124,7 @@ export default function Introduction() {
                 </div>
               </dl>
             </div>
-
-            {/* Floating Portrait Identification Badge (revealed smoothly on hover) */}
-            <div className="pointer-events-none absolute bottom-5 inset-x-6 sm:inset-x-8 z-20 flex items-center justify-between rounded-lg border border-white/20 bg-black/65 px-4 py-2.5 backdrop-blur-md opacity-0 translate-y-3 transition-all duration-500 delay-100 ease-out group-hover:opacity-100 group-hover:translate-y-0">
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#C9A15A] animate-pulse" />
-                <span className="font-serif text-sm tracking-wide text-white">{profile.name}</span>
-              </div>
-              <span className="text-[10px] uppercase tracking-widest text-[#C9A15A] font-medium">Portrait</span>
+          </div>
             </div>
           </aside>
         </div>

@@ -2,7 +2,7 @@ import { gsap } from '../animations/gsapConfig'
 import { addCameraTweens } from '../animations/journeyMap'
 import { addMarkerTweens } from '../animations/journeyMarkers'
 import { addRouteMotion, placeVisiblePopups } from '../animations/journeyRoutes'
-import { addTimelineTweens } from '../animations/journeyTimeline'
+import { addTimelineTweens, updateTimelineProgress } from '../animations/journeyTimeline'
 import { journeyChapters } from '../data/journeyLocations'
 import { useGSAP } from './useGSAP'
 
@@ -177,6 +177,7 @@ function setup(section, mode) {
       },
       onUpdate(self) {
         syncChapter(section, self.progress)
+        updateTimelineProgress(section, self.progress)
         placeVisiblePopups(section)
       },
     },

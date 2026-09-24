@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import ImageFrame from '../components/ImageFrame'
+import VideoPlayer from '../components/VideoPlayer'
 import PageMeta from '../components/PageMeta'
 import { posts } from '../data/blog'
 
@@ -35,7 +36,16 @@ export default function InsightDetail() {
             {post.title}
           </h1>
           <div className="mt-8">
-            <ImageFrame src={post.image} alt={post.imageAlt} className="aspect-[16/10]" priority />
+            {post.videoFile ? (
+              <VideoPlayer
+                src={post.videoFile}
+                poster={post.image}
+                title={post.title}
+                className="aspect-[16/10] sm:aspect-video w-full"
+              />
+            ) : (
+              <ImageFrame src={post.image} alt={post.imageAlt} className="aspect-[16/10]" priority />
+            )}
           </div>
           <div className="mt-8 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
             {post.paragraphs.map((paragraph) => (

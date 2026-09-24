@@ -1,8 +1,8 @@
 const placements = {
-  right: { x: 12, labelY: 0, noteY: 13, anchor: 'start' },
-  left: { x: -12, labelY: 0, noteY: 13, anchor: 'end' },
-  up: { x: 0, labelY: -18, noteY: -6, anchor: 'middle' },
-  down: { x: 0, labelY: 16, noteY: 28, anchor: 'middle' },
+  right: { x: 26, labelY: 0, noteY: 13, anchor: 'start' },
+  left: { x: -26, labelY: 0, noteY: 13, anchor: 'end' },
+  up: { x: 0, labelY: -22, noteY: -10, anchor: 'middle' },
+  down: { x: 0, labelY: 20, noteY: 32, anchor: 'middle' },
 }
 
 export default function JourneyMarker({ pin, label, note, align = 'right' }) {

@@ -30,6 +30,7 @@ export const posts = [
     image: students,
     imageAlt: 'Teachers and children with donated school supplies in a Ugandan classroom',
     video: 'https://www.youtube.com/watch?v=_1s5t8bOgKo',
+    videoFile: '/videos/uganda-students-charity.mp4',
     paragraphs: [
       'This short film follows a charity initiative in which Gilbert Kevin Jimmy Kwizera supported young learners in Uganda with essential scholastic materials.',
       'The published note is brief and specific: the support was practical, it was rooted in the community, and it was aimed at children’s education. The film is the primary record of the drive.',
@@ -45,6 +46,7 @@ export const posts = [
     image: cancer,
     imageAlt: 'Gilbert Kevin Jimmy Kwizera Providing Compassionate Cancer Care Support in Uganda',
     video: 'https://www.youtube.com/watch?v=GxwVERXJZko',
+    videoFile: '/videos/cancer-support-uganda.mp4',
     paragraphs: [
       'This film looks at how Gilbert Kevin Jimmy Kwizera is supporting cancer patients in Uganda through awareness, financial aid, and community programmes.',
       'The published description stays with the purpose of the work: improving access to care, and standing with families who are carrying the cost of treatment in more than money.',

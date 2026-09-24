@@ -10,7 +10,7 @@ import { journey } from './profile'
 
 const uganda = { id: 'uganda', label: 'Uganda', note: 'Born', align: 'left', ...project(32.5825, 0.3476) }
 const bangalore = { id: 'bangalore', label: 'Bangalore', note: 'Study', align: 'right', ...project(77.5946, 12.9716) }
-const ugandaMine = { id: 'uganda-mine', label: 'Uganda', note: 'Mine', align: 'left', ...project(30.2744, 0.6545) }
+const ugandaMine = { id: 'uganda-mine', label: 'Uganda', note: 'Mine', align: 'right', ...project(30.2744, 0.6545) }
 const ethiopia = { id: 'ethiopia', label: 'Ethiopia', note: 'Mine', align: 'up', ...project(40.5, 9.15) }
 const dubai = { id: 'dubai', label: 'Dubai', note: 'Business', align: 'up', ...project(55.2708, 25.2048) }
 const southAfrica = { id: 'south-africa', label: 'South Africa', note: 'Travel', align: 'down', ...project(26.2, -29.0) }
@@ -98,7 +98,7 @@ const extras = [
   {
     id: 'business-dubai',
     pin: 'dubai',
-    year: 'Dubai',
+    year: 'Business',
     shortLocation: 'Dubai',
     location: 'Dubai, UAE',
     image: dubaiWalking,

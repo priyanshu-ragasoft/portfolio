@@ -4,93 +4,138 @@ import { journeyChapters } from '../data/journeyLocations'
 const MUTED = '#8a847c'
 const GOLD = '#C9A15A'
 const WHITE = '#f4f0e8'
+const COUNT = journeyChapters.length // 7
 
-export function addTimelineTweens(timeline, root) {
-  const horizontal = root.querySelector('[data-journey-line="x"]')
-  if (horizontal) {
-    if (typeof horizontal.getTotalLength === 'function') {
-      const length = Math.ceil(horizontal.getTotalLength()) || 1000
-      gsap.set(horizontal, { strokeDasharray: length, strokeDashoffset: length })
-      timeline.to(horizontal, { strokeDashoffset: 0, duration: journeyChapters.length, ease: 'none' }, 0)
-    } else {
-      gsap.set(horizontal, { scaleX: 0 })
-      timeline.to(horizontal, { scaleX: 1, duration: journeyChapters.length, ease: 'none' }, 0)
-    }
-  }
+export function updateTimelineProgress(root, progress) {
+  if (!root) return
+
+  // progress is 0.0 to 1.0 across the pinned journey section
+  const clampedProgress = Math.min(1, Math.max(0, progress))
+  const rawIndex = clampedProgress * COUNT
+  const curIndex = Math.min(COUNT - 1, Math.floor(rawIndex))
+
+  // Wave line progress: smoothly flows from node 0 (0%) to node 6 (100%)
+  // Since there are (COUNT - 1) segments between milestones:
+  const lineProgress = Math.min(1, Math.max(0, (clampedProgress * COUNT) / (COUNT - 1)))
+
+  // Gold wave length is driven by the scroll timeline in addTimelineTweens.
+
+  // 2. Vertical Line (Mobile/Tablet view)
   const vertical = root.querySelector('[data-journey-line="y"]')
   if (vertical) {
-    gsap.set(vertical, { scaleY: 0 })
-    timeline.to(vertical, { scaleY: 1, duration: journeyChapters.length, ease: 'none' }, 0)
+    vertical.style.transform = `scaleY(${lineProgress})`
   }
 
+  // 3. Update Milestones & Micro Tags
   journeyChapters.forEach((chapter, index) => {
+    const isCurrent = index === curIndex
+    const isCompleted = index < curIndex
+
+    const item = root.querySelector(`[data-journey-step-item="${chapter.id}"]`)
     const step = root.querySelector(`[data-journey-step="${chapter.id}"]`)
     const year = root.querySelector(`[data-journey-year="${chapter.id}"]`)
     const loc = root.querySelector(`[data-journey-step-loc="${chapter.id}"]`)
     const node = root.querySelector(`[data-journey-node="${chapter.id}"]`)
     const glow = root.querySelector(`[data-journey-node-glow="${chapter.id}"]`)
-    const chip = root.querySelector(`[data-journey-step-chip="${chapter.id}"]`)
     const chipDot = root.querySelector(`[data-journey-chip-dot="${chapter.id}"]`)
 
-    const isInitial = index === 0
+    if (item) {
+      item.classList.toggle('is-current', isCurrent)
+      item.classList.toggle('is-active', isCurrent)
+      item.classList.toggle('is-completed', isCompleted)
+    }
 
-    if (step) gsap.set(step, { color: isInitial ? '#0D0D0C' : MUTED, fontWeight: isInitial ? '700' : '500' })
-    if (year) gsap.set(year, { color: isInitial ? WHITE : MUTED, fontWeight: isInitial ? '600' : '400' })
-    if (loc) gsap.set(loc, { color: isInitial ? GOLD : MUTED, fontWeight: isInitial ? '600' : '400' })
+    if (glow) {
+      glow.style.opacity = isCurrent ? '1' : '0'
+      glow.style.transform = isCurrent ? 'scale(1.25)' : 'scale(0.85)'
+    }
+
     if (node) {
-      gsap.set(node, {
-        scale: isInitial ? 1.15 : 1,
-        borderColor: isInitial ? GOLD : 'rgba(255,255,255,0.18)',
-        backgroundColor: isInitial ? GOLD : '#141311',
-        boxShadow: isInitial ? '0 0 16px rgba(201,161,90,0.7)' : 'none',
-      })
-    }
-    if (glow) gsap.set(glow, { opacity: isInitial ? 1 : 0, scale: isInitial ? 1.25 : 0.8 })
-    if (chipDot) gsap.set(chipDot, { opacity: isInitial ? 1 : 0 })
-
-    if (index > 0) {
-      const activate = { duration: 0.28, ease: 'power2.out' }
-      if (step) timeline.to(step, { color: '#0D0D0C', fontWeight: '700', ...activate }, index)
-      if (year) timeline.to(year, { color: WHITE, fontWeight: '600', ...activate }, index)
-      if (loc) timeline.to(loc, { color: GOLD, fontWeight: '600', ...activate }, index)
-      if (node) {
-        timeline.to(
-          node,
-          {
-            scale: 1.15,
-            borderColor: GOLD,
-            backgroundColor: GOLD,
-            boxShadow: '0 0 16px rgba(201,161,90,0.7)',
-            ...activate,
-          },
-          index,
-        )
+      if (isCurrent) {
+        node.style.borderColor = GOLD
+        node.style.backgroundColor = GOLD
+        node.style.transform = 'scale(1.18)'
+        node.style.boxShadow = '0 0 20px rgba(201,161,90,0.85)'
+      } else if (isCompleted) {
+        node.style.borderColor = GOLD
+        node.style.backgroundColor = '#1f1c16'
+        node.style.transform = 'scale(1)'
+        node.style.boxShadow = '0 0 10px rgba(201,161,90,0.3)'
+      } else {
+        node.style.borderColor = 'rgba(255,255,255,0.18)'
+        node.style.backgroundColor = '#141311'
+        node.style.transform = 'scale(1)'
+        node.style.boxShadow = 'none'
       }
-      if (glow) timeline.to(glow, { opacity: 1, scale: 1.25, ...activate }, index)
-      if (chipDot) timeline.to(chipDot, { opacity: 1, ...activate }, index)
     }
 
-    if (index < journeyChapters.length - 1) {
-      const deactivate = { duration: 0.22, ease: 'power2.in' }
-      if (step) timeline.to(step, { color: GOLD, fontWeight: '500', ...deactivate }, index + 0.88)
-      if (year) timeline.to(year, { color: MUTED, fontWeight: '400', ...deactivate }, index + 0.88)
-      if (loc) timeline.to(loc, { color: MUTED, fontWeight: '400', ...deactivate }, index + 0.88)
-      if (node) {
-        timeline.to(
-          node,
-          {
-            scale: 1,
-            borderColor: 'rgba(201,161,90,0.45)',
-            backgroundColor: '#1a1815',
-            boxShadow: 'none',
-            ...deactivate,
-          },
-          index + 0.88,
-        )
+    if (step) {
+      if (isCurrent) {
+        step.style.color = '#0D0D0C'
+        step.style.fontWeight = '700'
+      } else if (isCompleted) {
+        step.style.color = GOLD
+        step.style.fontWeight = '600'
+      } else {
+        step.style.color = MUTED
+        step.style.fontWeight = '500'
       }
-      if (glow) timeline.to(glow, { opacity: 0, scale: 0.8, ...deactivate }, index + 0.88)
-      if (chipDot) timeline.to(chipDot, { opacity: 0, ...deactivate }, index + 0.88)
+    }
+
+    if (year) {
+      if (isCurrent) {
+        year.style.color = WHITE
+        year.style.fontWeight = '600'
+      } else if (isCompleted) {
+        year.style.color = '#c5bfb4'
+        year.style.fontWeight = '500'
+      } else {
+        year.style.color = MUTED
+        year.style.fontWeight = '400'
+      }
+    }
+
+    if (loc) {
+      if (isCurrent) {
+        loc.style.color = GOLD
+        loc.style.fontWeight = '600'
+      } else if (isCompleted) {
+        loc.style.color = '#dfcaa0'
+        loc.style.fontWeight = '500'
+      } else {
+        loc.style.color = MUTED
+        loc.style.fontWeight = '400'
+      }
+    }
+
+    if (chipDot) {
+      chipDot.style.opacity = isCurrent ? '1' : '0'
     }
   })
+}
+
+export function initTimeline(root) {
+  updateTimelineProgress(root, 0)
+}
+
+export function addTimelineTweens(timeline, root) {
+  const horizontal = root.querySelector('[data-journey-line="x"]')
+  if (horizontal) {
+    const length = horizontal.getTotalLength() || 1
+    gsap.set(horizontal, { strokeDasharray: length, strokeDashoffset: length })
+    timeline.to(
+      horizontal,
+      { strokeDashoffset: 0, duration: COUNT, ease: 'none' },
+      0,
+    )
+  }
+
+  const vertical = root.querySelector('[data-journey-line="y"]')
+  if (vertical) {
+    gsap.set(vertical, { scaleY: 0, transformOrigin: 'top center' })
+    timeline.to(vertical, { scaleY: 1, duration: COUNT, ease: 'none' }, 0)
+  }
+
+  initTimeline(root)
 }
 

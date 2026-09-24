@@ -56,8 +56,15 @@ export default function BlogCard({ post, layout = 'row' }) {
 
           {/* Bottom Badge Bar */}
           <div className="absolute bottom-2.5 inset-x-2.5 z-10 flex items-center justify-between rounded-lg border border-white/15 bg-black/50 px-3 py-1.5 backdrop-blur-md">
-            <span className="font-sans text-[0.62rem] sm:text-[0.68rem] tracking-wider text-[#d9d0c4] uppercase">
-              Featured Insight
+            <span className="font-sans text-[0.62rem] sm:text-[0.68rem] tracking-wider text-[#d9d0c4] uppercase flex items-center gap-1.5">
+              {post.videoFile ? (
+                <>
+                  <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
+                  Film Documentary
+                </>
+              ) : (
+                'Featured Insight'
+              )}
             </span>
             <span className="font-mono text-[0.6rem] sm:text-[0.66rem] text-[#fae8be]">
               {post.date}
@@ -89,7 +96,7 @@ export default function BlogCard({ post, layout = 'row' }) {
               to={`/insights/${post.slug}`}
               className="group/btn relative inline-flex items-center gap-3 rounded-full border border-ink/20 bg-ink px-5 py-2.5 text-xs sm:text-sm font-semibold tracking-wider text-paper uppercase transition-all duration-300 hover:border-[#8d7043] hover:bg-[#8d7043] hover:shadow-[0_8px_20px_-4px_rgba(141,112,67,0.35)]"
             >
-              <span className="relative z-10">Read Article</span>
+              <span className="relative z-10">{post.videoFile ? 'Watch Film' : 'Read Article'}</span>
               <div className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 group-hover/btn:bg-white group-hover/btn:text-ink group-hover/btn:rotate-45">
                 <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
               </div>
@@ -118,8 +125,15 @@ export default function BlogCard({ post, layout = 'row' }) {
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
           aria-hidden="true"
         />
-        <span className="absolute bottom-2 left-2 z-10 rounded bg-black/60 px-2 py-0.5 text-[0.56rem] font-semibold tracking-wider text-[#fae8be] uppercase backdrop-blur-sm">
-          {post.category}
+        <span className="absolute bottom-2 left-2 z-10 rounded bg-black/60 px-2 py-0.5 text-[0.56rem] font-semibold tracking-wider text-[#fae8be] uppercase backdrop-blur-sm flex items-center gap-1">
+          {post.videoFile ? (
+            <>
+              <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
+              Video
+            </>
+          ) : (
+            post.category
+          )}
         </span>
       </div>
 
@@ -147,7 +161,7 @@ export default function BlogCard({ post, layout = 'row' }) {
           to={`/insights/${post.slug}`}
           className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider text-ink uppercase transition-colors group-hover:text-[#8d7043]"
         >
-          <span>Read more</span>
+          <span>{post.videoFile ? 'Watch film' : 'Read more'}</span>
           <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
         </Link>
       </div>

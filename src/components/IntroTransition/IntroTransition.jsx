@@ -2,7 +2,6 @@ import { useMemo, useRef } from 'react'
 import { prefersReducedMotion } from '../../animations/gsapConfig'
 import { createIntroScene } from '../../animations/introAnimation'
 import { useIntroAnimation } from '../../hooks/useIntroAnimation'
-import Logo from '../Logo'
 import IntroFragments from './IntroFragments'
 import IntroOrb from './IntroOrb'
 import IntroParticles from './IntroParticles'
@@ -57,7 +56,6 @@ export default function IntroTransition({ onComplete }) {
         style={{ opacity: 0 }}
       >
         <div className="text-center">
-          <Logo className="mx-auto mb-6 h-28 w-auto sm:h-36" />
           <p
             className="font-serif text-[clamp(1.65rem,4.4vw,3.35rem)] leading-[0.92] font-medium text-[#F4F0E8] uppercase"
             style={{ letterSpacing: '0.14em' }}

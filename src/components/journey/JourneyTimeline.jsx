@@ -11,7 +11,8 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
     const allTriggers = ScrollTrigger?.getAll() || []
     const trigger = allTriggers.find((st) => st.trigger === journeySection)
     if (trigger) {
-      const stepProgress = index / (journeyChapters.length - 1)
+      const count = journeyChapters.length
+      const stepProgress = Math.min(0.999, Math.max(0, (index + 0.4) / count))
       const targetScroll = trigger.start + (trigger.end - trigger.start) * stepProgress
       if (lenis) {
         lenis.scrollTo(targetScroll, { duration: 1.2 })
@@ -105,7 +106,7 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
     >
       {/* Background Ambient SVG Wave Track */}
       <svg
-        className="pointer-events-none absolute inset-x-2 sm:inset-x-4 top-1.5 sm:top-2 h-14 sm:h-16 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)]"
+        className="pointer-events-none absolute inset-x-2 top-0 h-10 w-[calc(100%-1rem)] sm:inset-x-4 sm:h-12 sm:w-[calc(100%-2rem)]"
         viewBox="0 0 1000 60"
         preserveAspectRatio="none"
         aria-hidden="true"
@@ -118,7 +119,7 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
             <stop offset="75%" stopColor="#fae8be" />
             <stop offset="100%" stopColor="#C9A15A" />
           </linearGradient>
-          <filter id="wave-gold-glow" x="-20%" y="-40%" width="140%" height="180%">
+          <filter id="wave-gold-glow" x="-30%" y="-50%" width="160%" height="200%">
             <feGaussianBlur stdDeviation="3.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
@@ -129,6 +130,7 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
 
         {/* Outer Dark Guiding Wave */}
         <path
+          pathLength="1000"
           d="M 15 36 C 85 44, 145 16, 214 16 C 285 16, 310 44, 357 44 C 410 44, 445 14, 500 14 C 555 14, 590 44, 643 44 C 700 44, 735 16, 786 16 C 845 16, 885 34, 985 34"
           fill="none"
           stroke="rgba(255, 255, 255, 0.12)"
@@ -138,6 +140,7 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
 
         {/* Subtle Dotted Secondary Energy Guide */}
         <path
+          pathLength="1000"
           d="M 15 36 C 85 44, 145 16, 214 16 C 285 16, 310 44, 357 44 C 410 44, 445 14, 500 14 C 555 14, 590 44, 643 44 C 700 44, 735 16, 786 16 C 845 16, 885 34, 985 34"
           fill="none"
           stroke="rgba(201, 161, 90, 0.3)"
@@ -146,7 +149,7 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
           strokeLinecap="round"
         />
 
-        {/* Luminous Animated Curved Gold Laser Wave */}
+        {/* Gold wave draws along the track as the journey scroll progresses */}
         <path
           data-journey-line="x"
           d="M 15 36 C 85 44, 145 16, 214 16 C 285 16, 310 44, 357 44 C 410 44, 445 14, 500 14 C 555 14, 590 44, 643 44 C 700 44, 735 16, 786 16 C 845 16, 885 34, 985 34"
@@ -163,11 +166,11 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
           <li
             key={chapter.id}
             data-journey-step-item={chapter.id}
-            className={`group relative flex cursor-pointer flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 ${waveOffsets[index] || ''}`}
+            className="group relative flex cursor-pointer flex-col items-center text-center"
             onClick={() => scrollToChapter(index)}
           >
             {/* Medallion Node (Number inside illuminated glass circle) */}
-            <div className="relative flex h-6 w-6 xs:h-7 xs:w-7 sm:h-8 sm:w-8 items-center justify-center">
+            <div className={`relative flex h-6 w-6 xs:h-7 xs:w-7 sm:h-8 sm:w-8 items-center justify-center transition-transform duration-300 group-hover:-translate-y-0.5 ${waveOffsets[index] || ''}`}>
               {/* Outer Glowing Beacon Aura */}
               <span
                 data-journey-node-glow={chapter.id}
@@ -193,7 +196,7 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
             {/* Micro Year / Category Tag */}
             <span
               data-journey-year={chapter.id}
-              className="mt-1 font-sans text-[0.48rem] xs:text-[0.54rem] sm:text-[0.62rem] font-medium tracking-[0.08em] sm:tracking-[0.14em] text-[#8a847c] uppercase transition-colors duration-300 group-hover:text-[#f4f0e8]"
+              className="mt-4 font-sans text-[0.48rem] xs:text-[0.54rem] sm:mt-5 sm:text-[0.62rem] font-medium tracking-[0.08em] sm:tracking-[0.14em] text-[#8a847c] uppercase transition-colors duration-300 group-hover:text-[#f4f0e8]"
             >
               {chapter.year}
             </span>
