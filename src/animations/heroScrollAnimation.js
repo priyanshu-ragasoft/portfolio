@@ -151,7 +151,8 @@ export function buildHeroScrollTimeline(section, mode) {
   if (indicator) timeline.to(indicator, { autoAlpha: 0, duration: 1 }, 4.5)
   if (header) timeline.to(header, { opacity: 0.4, duration: 1.2 }, 4.8)
 
-  const cursorNode = document.querySelector('.fixed.rounded-full.border-bronze')
+  // Cursor subtly grows during hero scroll — targets [data-cursor-el] if present
+  const cursorNode = document.querySelector('[data-cursor-el]')
   if (cursorNode) {
     timeline.to(cursorNode, { scale: 1.35, duration: 1.5 }, 2.2)
     timeline.to(cursorNode, { scale: 1, duration: 1.5 }, 6)

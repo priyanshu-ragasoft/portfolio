@@ -28,13 +28,13 @@ export default function Hero() {
   return (
     <section ref={heroRef} data-hero className="relative bg-ink text-paper">
       <div data-hero-stage className="relative min-h-[100svh] overflow-hidden">
-        <div data-hero-frame className="absolute inset-x-0 -top-[8%] h-[116%]">
+        <div data-hero-frame className="absolute inset-x-0 -top-[2%] h-[106%]">
           <div data-hero-parallax="deep" className="absolute inset-0 h-full w-full will-change-transform">
             <img
               data-hero-image
               src={profile.hero}
               alt="Portrait of Gilbert Kevin Jimmy Kwizera"
-              className="relative z-[1] h-full w-full object-cover object-[center_22%] sm:object-[62%_center]"
+              className="relative z-[1] h-full w-full object-cover object-[center_8%] sm:object-[66%_14%]"
               fetchPriority="high"
               decoding="async"
             />
@@ -44,7 +44,7 @@ export default function Hero() {
                 cols={compact ? 4 : 7}
                 rows={compact ? 4 : 5}
                 compact={compact}
-                objectPosition={compact ? 'center 22%' : '62% center'}
+                objectPosition={compact ? 'center 8%' : '66% 14%'}
               />
             ) : null}
           </div>

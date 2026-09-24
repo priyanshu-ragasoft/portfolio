@@ -1,41 +1,60 @@
 import { gsap } from './gsapConfig'
 import { MAP_HEIGHT, MAP_WIDTH } from '../assets/maps/land'
-import { journeyRoutes } from '../data/journeyLocations'
+import { journeyChapters } from '../data/journeyLocations'
 
-const HOME = { x: 0, y: 0, scale: 1 }
-
-function framed(start, end, maxZoom) {
+export function getCameraPose(targetPoint, scale = 1.18) {
   const cx = MAP_WIDTH / 2
   const cy = MAP_HEIGHT / 2
-  const midX = (start.x + end.x) / 2
-  const midY = (start.y + end.y) / 2
-  const spanX = Math.max(70, Math.abs(start.x - end.x) + 110)
-  const spanY = Math.max(70, Math.abs(start.y - end.y) + 90)
-  const fit = Math.min((MAP_WIDTH * 0.58) / spanX, (MAP_HEIGHT * 0.58) / spanY)
-  const scale = Math.min(maxZoom, Math.max(1, fit))
+
+  let tx = cx - scale * targetPoint.x
+  let ty = cy - scale * targetPoint.y
+
+  // Bounding clamps to ensure the map always frames Africa, Middle East, India, and Russia comfortably
+  const minX = MAP_WIDTH * (1 - scale) - 50
+  const maxX = 50
+  const minY = MAP_HEIGHT * (1 - scale) - 40
+  const maxY = 40
+
+  tx = Math.max(minX, Math.min(maxX, tx))
+  ty = Math.max(minY, Math.min(maxY, ty))
+
   return {
-    x: (cx - midX) * scale,
-    y: (cy - midY) * scale,
+    x: tx,
+    y: ty,
     scale,
+    transformOrigin: '0 0',
   }
 }
 
-export function addCameraTweens(timeline, root, zoom) {
+export function addCameraTweens(timeline, root, baseZoom = 1.18) {
   const camera = root.querySelector('[data-journey-camera]')
-  if (!camera || zoom <= 1) return
+  if (!camera) return
 
-  const origin = `${MAP_WIDTH / 2} ${MAP_HEIGHT / 2}`
-  gsap.set(camera, { ...HOME, svgOrigin: origin })
+  const zoom = baseZoom || 1.18
 
-  journeyRoutes.forEach((route, index) => {
-    const path = root.querySelector(`[data-journey-route="${route.id}"] [data-route-draw]`)
-    if (!path) return
-    const length = path.getTotalLength()
-    const pose = framed(path.getPointAtLength(0), path.getPointAtLength(length), zoom)
-    const last = index === journeyRoutes.length - 1
-    timeline.to(camera, { ...pose, svgOrigin: origin, duration: 0.22, ease: 'power2.inOut' }, route.at)
-    if (last) {
-      timeline.to(camera, { ...HOME, svgOrigin: origin, duration: 0.28, ease: 'power2.inOut' }, route.at + route.duration)
-    }
+  // Chapter 0 initial pose: centered on Uganda (Born in Uganda)
+  const initialPose = getCameraPose(journeyChapters[0].camera, zoom)
+  gsap.set(camera, initialPose)
+
+  journeyChapters.forEach((chapter, index) => {
+    if (index === 0) return
+
+    let targetZoom = zoom
+    if (chapter.id === 'travel-russia') targetZoom = zoom * 1.02
+    else if (chapter.id === 'travel-south-africa') targetZoom = zoom * 0.98
+
+    const pose = getCameraPose(chapter.camera, targetZoom)
+
+    // Smooth continuous glide from index - 1 to index
+    timeline.to(
+      camera,
+      {
+        ...pose,
+        duration: 0.92,
+        ease: 'power1.inOut',
+      },
+      index - 0.94,
+    )
   })
 }
+

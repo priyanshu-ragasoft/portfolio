@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import Container from '../components/Container'
-import ImageFrame from '../components/ImageFrame'
+import AboutPortrait3D from '../components/AboutPortrait3D'
 import { profile, roles } from '../data/profile'
 
 export default function About() {
@@ -9,12 +9,7 @@ export default function About() {
     <section id="about" data-scene="about" className="bg-ivory py-20 md:py-32">
       <Container className="grid items-center gap-12 lg:grid-cols-12">
         <div data-about-visual className="lg:col-span-5">
-          <ImageFrame
-            src={profile.portrait}
-            alt="Close portrait of Gilbert Kevin Jimmy Kwizera"
-            className="aspect-[4/5]"
-            position="center 62%"
-          />
+          <AboutPortrait3D />
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
           <p data-about-kicker className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.22em] text-muted">

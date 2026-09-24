@@ -1,5 +1,8 @@
-import heroPortrait from '../assets/images/solution-kevin.jpg'
-import formalPortrait from '../assets/images/about-kevin.jpg'
+import heroPortrait from '../assets/images/gilbert-kwizera-executive.jpg'
+import formalPortrait from '../assets/images/gilbert-kwizera-lounge-armchair.jpg'
+import officePortrait from '../assets/images/gilbert-kwizera-office-standing.jpg'
+import walkingPortrait from '../assets/images/gilbert-kwizera-dubai-walking.jpg'
+import yachtPortrait from '../assets/images/gilbert-kwizera-dubai-marina-yacht.jpg'
 import institute from '../assets/images/ccf-uci.jpg'
 import schoolyard from '../assets/images/Supporting-Education-Empowering-Futures.jpg'
 
@@ -13,6 +16,9 @@ export const profile = {
   location: 'Le Pont, Port de la Mer, Jumeirah, Dubai',
   hero: heroPortrait,
   portrait: formalPortrait,
+  office: officePortrait,
+  walking: walkingPortrait,
+  yacht: yachtPortrait,
   storyImage: institute,
   educationImage: schoolyard,
 }
@@ -21,8 +27,8 @@ export const socials = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/gilbert-kevin-jimmy-kwizera' },
   { label: 'Instagram', href: 'https://www.instagram.com/gilbert_kevin_jimmy/' },
   { label: 'YouTube', href: 'https://www.youtube.com/@GilbertKevinJimmyKwizera' },
-  { label: 'X', href: 'https://twitter.com/jimmy_gilb69678' },
   { label: 'Pinterest', href: 'https://www.pinterest.com/gilbert_kevin_jimmy/' },
+  { label: 'X', href: 'https://twitter.com/jimmy_gilb69678' },
 ]
 
 export const navLinks = [
@@ -30,6 +36,7 @@ export const navLinks = [
   { label: 'Journey', to: '/#journey' },
   { label: 'Impact', to: '/#impact' },
   { label: 'Projects', to: '/projects' },
+  { label: 'Archive', to: '/#gallery' },
   { label: 'Insights', to: '/insights' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -101,39 +108,45 @@ export const educationNotes = [
 export const journey = [
   {
     date: '30 November 1971',
-    place: 'Kampala',
-    title: 'Born in Kampala',
-    text: 'Born in Kampala, Uganda, into a setting where poverty, sickness, and limited access to basic facilities were close at hand. Those years formed his sense of vulnerability and of duty toward people who are rarely heard.',
+    place: 'Uganda',
+    title: 'Born in Uganda',
+    text: 'Born in Kampala, Uganda, into a setting where poverty, sickness, and limited access to basic facilities formed an early proximity to hardship and a lifelong duty toward vulnerable communities.',
   },
   {
     date: 'Studies',
-    place: 'Education',
-    title: 'Commerce, systems, and finance',
-    text: 'He completed a Bachelor of Commerce in Information Systems and later a master’s degree in finance. The point of the education, as he has described it, was to be better prepared to serve.',
+    place: 'Bangalore',
+    title: 'Study in India Bangalore',
+    text: 'He completed a Bachelor of Commerce in Information Systems and later a master’s degree in finance in Bangalore, India, preparing himself to lead with institutional governance and sustainability.',
+  },
+  {
+    date: 'Resource Development',
+    place: 'Uganda',
+    title: 'Mine in Uganda',
+    text: 'Engaged in mineral development and responsible resource initiatives in Uganda, focusing on ethical extraction standards, local job creation, and dignity for mining communities.',
+  },
+  {
+    date: 'Pan-African Outreach',
+    place: 'Ethiopia',
+    title: 'Mine in Ethiopia',
+    text: 'Extended mining operations and cross-border trade initiatives to Ethiopia, advocating for sustainable natural resource management and equitable regional cooperation.',
   },
   {
     date: 'United Arab Emirates',
-    place: 'Emirates',
-    title: 'Consultant and social entrepreneur',
-    text: 'He lives in the United Arab Emirates and works as an international consultant and social entrepreneur. Ethical leadership and long-term, people-driven solutions are the standard he applies to the work.',
+    place: 'Dubai',
+    title: 'Business in Dubai',
+    text: 'Established his international consulting and social enterprise base in the United Arab Emirates, advising on ethical commerce, transparent governance, and long-term people-centred solutions.',
   },
   {
-    date: '2006',
-    place: 'Uganda',
-    title: 'Support to finish treatment',
-    text: 'Through his charity, he supported Salim Bwagu, who had lived with Hodgkin’s lymphoma since childhood. The support covered the cost of completing treatment. In 2007, Salim was cleared by the National Cancer Institute.',
+    date: 'Pan-African Ties',
+    place: 'South Africa',
+    title: 'Traveled in South Africa',
+    text: 'Extensive travels and diplomatic missions across South Africa, fostering bilateral alliances, pan-African philanthropy, and cross-continental community empowerment.',
   },
   {
-    date: 'Foundations',
-    place: 'Foundations',
-    title: 'Cancer Charity Foundation and Haven Welfare',
-    text: 'He founded the Cancer Charity Foundation and Haven Welfare. One is organised around dignity in cancer care. The other is organised around recovery, rehabilitation, and a return to community without stigma.',
-  },
-  {
-    date: '19 March 2026',
-    place: 'Fort Portal',
-    title: 'Scholastic materials in Fort Portal',
-    text: 'Divine Mercy Nursery & Primary School in Kiko, along Kamwenge Road in Fort Portal, received exercise books, pens, pencils, rulers, rubbers, and learning charts. He was not there in person. The school’s director, Rev. Fr. Christopher Mukidi, spoke about how happy the children were.',
+    date: 'Global Relations',
+    place: 'Russia',
+    title: 'Traveled in Russia',
+    text: 'Travelled to Russia for high-level international dialogue and global consulting, connecting international diplomacy with responsible investments and humanitarian duty.',
   },
 ]
 

@@ -9,7 +9,7 @@ const BASE_DURATION = 2.2
 const IMAGE_GRID = { desktop: [5, 4], tablet: [4, 3], mobile: [3, 3] }
 const PARTICLE_COUNT = { desktop: 46, tablet: 28, mobile: 14 }
 const DEPTH_SCALE = { desktop: 1, tablet: 0.72, mobile: 0.42 }
-const PORTRAIT = { desktop: '62% center', tablet: '62% center', mobile: 'center 22%' }
+const PORTRAIT = { desktop: '66% 14%', tablet: '65% 14%', mobile: 'center 8%' }
 
 let gateReady = false
 let allowIntro = false

@@ -88,15 +88,15 @@ export default function Navbar() {
         className="absolute inset-0 border-b border-line bg-paper/88 opacity-0 backdrop-blur-md"
         aria-hidden="true"
       />
-      <div className="relative mx-auto flex h-20 max-w-[1180px] items-center justify-between px-5 sm:px-8">
+      <div className="relative mx-auto flex h-20 sm:h-24 max-w-[1180px] items-center justify-between px-5 sm:px-8">
         <Link
           to="/"
           data-nav-logo
           aria-label={profile.name}
-          className="relative z-10 inline-flex rounded-xl bg-[#070b16] p-1.5"
+          className={`relative z-10 inline-flex transition-transform duration-300 origin-left ${scrolled ? 'scale-105' : 'scale-100'}`}
           onClick={close}
         >
-          <Logo priority className="h-14 w-auto" />
+          <Logo priority className={`h-16 w-auto sm:h-20 transition-all duration-300 drop-shadow-sm ${!light ? 'brightness-0' : ''}`} />
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
@@ -137,7 +137,7 @@ export default function Navbar() {
         <div
           id="mobile-menu"
           ref={panelRef}
-          className="fixed inset-0 top-20 z-40 bg-paper lg:hidden"
+          className="fixed inset-0 top-20 sm:top-24 z-40 bg-paper lg:hidden"
         >
           <nav className="flex h-full flex-col px-6 py-8" aria-label="Mobile">
             {navLinks.map((link) => (

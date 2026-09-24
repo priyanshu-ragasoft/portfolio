@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
-import ImageFrame from '../components/ImageFrame'
+import AboutPortrait3D from '../components/AboutPortrait3D'
 import PageMeta from '../components/PageMeta'
 import { biography, educationNotes, journey, profile, roles } from '../data/profile'
 
@@ -21,12 +21,7 @@ export default function AboutPage() {
           </h1>
           <div className="mt-12 grid items-start gap-12 lg:grid-cols-12">
             <div data-profile="portrait" className="lg:sticky lg:top-28 lg:col-span-5">
-              <ImageFrame
-                src={profile.portrait}
-                alt="Portrait of Gilbert Kevin Jimmy Kwizera"
-                className="aspect-[4/5]"
-                position="center 62%"
-              />
+              <AboutPortrait3D />
             </div>
             <div className="lg:col-span-6 lg:col-start-7">
               <p data-profile="role" className="text-sm font-medium text-bronze">

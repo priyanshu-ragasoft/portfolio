@@ -1,6 +1,8 @@
 import { gsap } from './gsapConfig'
 import { isCompact } from './helpers'
 
+const MAX_TILT = 5  // degrees — subtle, card-floating feel
+
 export function initInteractions(root) {
   if (!root) return () => {}
 
@@ -38,6 +40,12 @@ export function initInteractions(root) {
       }
     }
 
+    // Reset 3D tilt
+    const tiltCard = event.target.closest?.('[data-tilt]')
+    if (tiltCard && root.contains(tiltCard) && !tiltCard.contains(event.relatedTarget)) {
+      gsap.to(tiltCard, { rotateX: 0, rotateY: 0, duration: 0.55, ease: 'power2.out', overwrite: 'auto' })
+    }
+
     const frame = event.target.closest?.('[data-image-reveal]')
     if (frame && root.contains(frame) && !frame.contains(event.relatedTarget)) {
       const zoom = frame.querySelector('[data-image-zoom]')
@@ -52,11 +60,23 @@ export function initInteractions(root) {
 
   const onMove = (event) => {
     if (!fine) return
+
+    // Magnetic button
     const button = event.target.closest?.('[data-button]')
-    if (!button || !root.contains(button)) return
-    const rect = button.getBoundingClientRect()
-    const relX = event.clientX - (rect.left + rect.width / 2)
-    magnetFor(button)(gsap.utils.clamp(-6, 6, relX * 0.22))
+    if (button && root.contains(button)) {
+      const rect = button.getBoundingClientRect()
+      const relX = event.clientX - (rect.left + rect.width / 2)
+      magnetFor(button)(gsap.utils.clamp(-6, 6, relX * 0.22))
+    }
+
+    // 3D tilt for [data-tilt] cards — independent of button check
+    const tiltCard = event.target.closest?.('[data-tilt]')
+    if (tiltCard && root.contains(tiltCard)) {
+      const r  = tiltCard.getBoundingClientRect()
+      const rx = ((event.clientY - (r.top  + r.height / 2)) / r.height) * -MAX_TILT
+      const ry = ((event.clientX - (r.left + r.width  / 2)) / r.width)  *  MAX_TILT
+      gsap.to(tiltCard, { rotateX: rx, rotateY: ry, duration: 0.4, ease: 'power2.out', overwrite: 'auto', transformPerspective: 900 })
+    }
   }
 
   const onDown = (event) => {

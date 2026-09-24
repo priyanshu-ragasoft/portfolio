@@ -66,16 +66,37 @@ export default function Introduction() {
 
           <aside
             data-intro-plate
-            className="relative overflow-hidden bg-ink px-7 py-8 text-paper lg:col-span-5 lg:col-start-8 lg:px-8 lg:py-10"
+            className="group relative overflow-hidden bg-ink px-7 py-8 text-paper lg:col-span-5 lg:col-start-8 lg:px-8 lg:py-10 rounded-xl cursor-pointer select-none transition-all duration-500 hover:shadow-2xl hover:shadow-black/70 border border-white/5 hover:border-[#C9A15A]/40"
           >
+            {/* Full-color portrait revealed on hover */}
             <img
               src={profile.portrait}
-              alt=""
+              alt={profile.name}
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_30%] opacity-25"
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_12%] opacity-30 grayscale-[45%] transition-all duration-700 ease-[cubic-bezier(0.2,1,0.3,1)] group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/55" />
-            <div className="relative">
+
+            {/* Base ambient dark gradient that fades on hover */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/85 to-ink/65 transition-opacity duration-600 ease-out group-hover:opacity-0" />
+
+            {/* Shutter Blade Mechanism: Upper and Lower panels split open on hover */}
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-ink/80 backdrop-blur-[2px] transition-transform duration-700 ease-[cubic-bezier(0.7,0,0.2,1)] group-hover:-translate-y-full border-b border-[#C9A15A]/25"
+              aria-hidden="true"
+            />
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-ink/80 backdrop-blur-[2px] transition-transform duration-700 ease-[cubic-bezier(0.7,0,0.2,1)] group-hover:translate-y-full border-t border-[#C9A15A]/25"
+              aria-hidden="true"
+            />
+
+            {/* Top-Right "Hover to reveal" hint badge (hides on hover) */}
+            <div className="absolute top-5 right-5 z-20 flex items-center gap-1.5 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[10px] tracking-wider text-mist/80 uppercase backdrop-blur-md transition-all duration-400 group-hover:opacity-0 group-hover:scale-90 pointer-events-none">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#C9A15A] animate-pulse" />
+              <span>Hover to reveal</span>
+            </div>
+
+            {/* Editorial Text Content (Smoothly wipes / fades out like a shutter on hover) */}
+            <div className="relative z-10 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:opacity-0 group-hover:scale-95 group-hover:translate-y-3 group-hover:pointer-events-none">
               <p className="text-[0.65rem] font-medium uppercase tracking-[0.22em] text-[#C9A15A]">
                 A working standard
               </p>
@@ -96,6 +117,15 @@ export default function Introduction() {
                   <dd className="mt-1 text-sm text-paper">Jumeirah, Dubai</dd>
                 </div>
               </dl>
+            </div>
+
+            {/* Floating Portrait Identification Badge (revealed smoothly on hover) */}
+            <div className="pointer-events-none absolute bottom-5 inset-x-6 sm:inset-x-8 z-20 flex items-center justify-between rounded-lg border border-white/20 bg-black/65 px-4 py-2.5 backdrop-blur-md opacity-0 translate-y-3 transition-all duration-500 delay-100 ease-out group-hover:opacity-100 group-hover:translate-y-0">
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#C9A15A] animate-pulse" />
+                <span className="font-serif text-sm tracking-wide text-white">{profile.name}</span>
+              </div>
+              <span className="text-[10px] uppercase tracking-widest text-[#C9A15A] font-medium">Portrait</span>
             </div>
           </aside>
         </div>

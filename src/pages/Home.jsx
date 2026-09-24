@@ -4,6 +4,7 @@ import Blog from '../sections/Blog'
 import Contact from '../sections/Contact'
 import Education from '../sections/Education'
 import FeaturedStory from '../sections/FeaturedStory'
+import Gallery from '../sections/Gallery'
 import Hero from '../sections/Hero'
 import Impact from '../sections/Impact'
 import Introduction from '../sections/Introduction'
@@ -27,6 +28,7 @@ export default function Home() {
       <Impact />
       <Projects />
       <FeaturedStory />
+      <Gallery />
       <Education />
       <Blog limit={3} />
       <Philosophy />

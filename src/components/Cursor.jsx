@@ -1,38 +1,84 @@
+/**
+ * Cursor — premium custom cursor for desktop.
+ *
+ * States:
+ * - Default:  small gold ring dot
+ * - Link / button hover: ring expands to 2× scale
+ * - Project / impact card hover: shows "VIEW" text, expands to 3× scale
+ * - Pointer down: slight scale-down (tactile press feel)
+ *
+ * Uses gsap.quickTo for buttery smooth following.
+ * The wrapper element carries data-cursor-el so the hero scroll animation
+ * can subtly scale the cursor during the fragmentation phase.
+ *
+ * Disabled on:
+ * - Touch / coarse pointer devices
+ * - prefers-reduced-motion
+ */
 import { useEffect, useRef } from 'react'
 import { gsap, prefersReducedMotion } from '../animations/gsapConfig'
 
 export default function Cursor() {
   const cursorRef = useRef(null)
-  const enabled =
-    window.matchMedia('(hover: hover) and (pointer: fine)').matches && !prefersReducedMotion()
+  const labelRef  = useRef(null)
+
+  const fine    = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  const reduced = typeof window !== 'undefined' && prefersReducedMotion()
+  const enabled = fine && !reduced
 
   useEffect(() => {
     if (!enabled || !cursorRef.current) return undefined
 
     const cursor = cursorRef.current
-    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.45, ease: 'power3.out' })
+    const label  = labelRef.current
+
+    // Initial position off-screen so it doesn't flash at 0,0 on mount
+    gsap.set(cursor, { x: -100, y: -100, opacity: 0 })
+
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.5,  ease: 'power3.out' })
     const yTo = gsap.quickTo(cursor, 'y', { duration: 0.45, ease: 'power3.out' })
 
-    const move = (event) => {
-      xTo(event.clientX)
-      yTo(event.clientY)
+    let moved = false
+
+    const move = (e) => {
+      xTo(e.clientX)
+      yTo(e.clientY)
+      if (!moved) {
+        moved = true
+        gsap.to(cursor, { opacity: 1, duration: 0.3 })
+      }
     }
 
-    const over = (event) => {
-      const target = event.target.closest('a, button, [data-cursor]')
-      gsap.to(cursor, {
-        scale: target ? 2.1 : 1,
-        duration: 0.3,
-        ease: 'power2.out',
-      })
+    const over = (e) => {
+      // Check project first (higher specificity than generic link)
+      const isProject = e.target.closest?.('[data-tilt], [data-project]')
+      const isInteractive = !isProject && e.target.closest?.('a, button, [data-button]')
+
+      if (isProject) {
+        gsap.to(cursor, { scale: 3.2, duration: 0.4, ease: 'power3.out', overwrite: 'auto' })
+        if (label) gsap.to(label, { opacity: 1, scale: 1, duration: 0.35, ease: 'power3.out', overwrite: 'auto' })
+      } else if (isInteractive) {
+        gsap.to(cursor, { scale: 2.1, duration: 0.3, ease: 'power2.out', overwrite: 'auto' })
+        if (label) gsap.to(label, { opacity: 0, scale: 0.5, duration: 0.2, overwrite: 'auto' })
+      } else {
+        gsap.to(cursor, { scale: 1, duration: 0.35, ease: 'power2.out', overwrite: 'auto' })
+        if (label) gsap.to(label, { opacity: 0, scale: 0.5, duration: 0.2, overwrite: 'auto' })
+      }
     }
 
-    window.addEventListener('pointermove', move)
+    const down = () => gsap.to(cursor, { scale: 0.85, duration: 0.1, ease: 'power2.out', overwrite: 'auto' })
+    const up   = (e) => over(e)   // restore correct state after press
+
+    window.addEventListener('pointermove', move, { passive: true })
     document.addEventListener('pointerover', over)
+    document.addEventListener('pointerdown', down)
+    document.addEventListener('pointerup',   up)
 
     return () => {
       window.removeEventListener('pointermove', move)
       document.removeEventListener('pointerover', over)
+      document.removeEventListener('pointerdown', down)
+      document.removeEventListener('pointerup',   up)
     }
   }, [enabled])
 
@@ -41,8 +87,21 @@ export default function Cursor() {
   return (
     <div
       ref={cursorRef}
+      data-cursor-el
       aria-hidden="true"
-      className="pointer-events-none fixed top-0 left-0 z-[80] hidden h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-bronze lg:block"
-    />
+      className="pointer-events-none fixed top-0 left-0 z-[200] hidden -translate-x-1/2 -translate-y-1/2 items-center justify-center lg:flex"
+    >
+      {/* Ring */}
+      <div className="h-4 w-4 rounded-full border border-bronze" />
+      {/* VIEW label — appears on project/card hover */}
+      <span
+        ref={labelRef}
+        className="absolute text-[0.48rem] font-semibold tracking-[0.22em] text-bronze uppercase"
+        style={{ opacity: 0, scale: 0.5 }}
+        aria-hidden="true"
+      >
+        VIEW
+      </span>
+    </div>
   )
 }

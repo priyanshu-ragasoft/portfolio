@@ -16,8 +16,8 @@ function addStoryTweens(timeline, root, distance) {
 
     if (index > 0) {
       const previous = root.querySelector(`[data-journey-chapter="${journeyChapters[index - 1].id}"]`)
-      timeline.to(previous, { autoAlpha: 0, y: -distance, duration: 0.22, ease: 'power2.in' }, index)
-      timeline.to(panel, { autoAlpha: 1, y: 0, duration: 0.28, ease: 'power2.out' }, index + 0.06)
+      timeline.to(previous, { autoAlpha: 0, y: -distance, duration: 0.12, ease: 'power2.in' }, index)
+      timeline.to(panel, { autoAlpha: 1, y: 0, duration: 0.14, ease: 'power2.out' }, index + 0.14)
     }
 
     const figure = panel.querySelector('[data-journey-figure]')
@@ -31,8 +31,8 @@ function addStoryTweens(timeline, root, distance) {
     }
     gsap.set(figure, { clipPath: 'inset(100% 0% 0% 0%)' })
     gsap.set(photo, { scale: 1.08 })
-    timeline.to(figure, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.5, ease: 'power3.inOut' }, index)
-    timeline.to(photo, { scale: 1, duration: 0.65, ease: 'power2.out' }, index)
+    timeline.to(figure, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.45, ease: 'power3.inOut' }, index + 0.14)
+    timeline.to(photo, { scale: 1, duration: 0.55, ease: 'power2.out' }, index + 0.14)
   })
 
   const hint = root.querySelector('[data-journey-hint]')
@@ -52,9 +52,36 @@ function syncChapter(section, progress) {
   section.querySelectorAll('[data-journey-marker]').forEach((node) => {
     node.classList.toggle('is-active', node.dataset.journeyMarker === active.pin)
   })
-  section.querySelectorAll('[data-journey-year], [data-journey-step]').forEach((node) => {
-    const id = node.dataset.journeyYear || node.dataset.journeyStep
-    node.classList.toggle('is-current', id === active.id)
+  section.querySelectorAll('[data-journey-year], [data-journey-step], [data-journey-step-loc]').forEach((node) => {
+    const id = node.dataset.journeyYear || node.dataset.journeyStep || node.dataset.journeyStepLoc
+    const isCur = id === active.id
+    node.classList.toggle('is-current', isCur)
+    node.closest('li')?.classList.toggle('is-current', isCur)
+  })
+  section.querySelectorAll('[data-journey-step-item]').forEach((item) => {
+    const isCur = item.dataset.journeyStepItem === active.id
+    item.classList.toggle('is-active', isCur)
+    const glow = item.querySelector('[data-journey-node-glow]')
+    const node = item.querySelector('[data-journey-node]')
+    const step = item.querySelector('[data-journey-step]')
+    const chip = item.querySelector('[data-journey-step-chip]')
+    const chipDot = item.querySelector('[data-journey-chip-dot]')
+    if (glow) glow.style.opacity = isCur ? '1' : '0'
+    if (node) {
+      node.style.borderColor = isCur ? '#C9A15A' : 'rgba(255,255,255,0.18)'
+      node.style.backgroundColor = isCur ? '#C9A15A' : '#141311'
+      node.style.transform = isCur ? 'scale(1.15)' : 'scale(1)'
+      node.style.boxShadow = isCur ? '0 0 16px rgba(201,161,90,0.7)' : 'none'
+    }
+    if (step) {
+      step.style.color = isCur ? '#0D0D0C' : '#8a847c'
+      step.style.fontWeight = isCur ? '700' : '500'
+    }
+    if (chip) {
+      chip.style.borderColor = 'transparent'
+      chip.style.backgroundColor = 'transparent'
+    }
+    if (chipDot) chipDot.style.opacity = isCur ? '1' : '0'
   })
 }
 
@@ -131,7 +158,7 @@ function bindHover(section) {
 
 function setup(section, mode) {
   const distance = mode === 'mobile' ? 16 : 28
-  const zoom = mode === 'desktop' ? 2.15 : mode === 'tablet' ? 1.75 : 1.45
+  const zoom = mode === 'desktop' ? 1.20 : mode === 'tablet' ? 1.14 : 1.08
   const end = mode === 'mobile' ? '+=2800' : mode === 'tablet' ? '+=3800' : '+=5000'
   section._journeyIndex = -1
 

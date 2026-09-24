@@ -2,6 +2,11 @@ import schoolyard from '../assets/images/Supporting-Education-Empowering-Futures
 import classroom from '../assets/images/Gilbert-Kwizera-Charity-Support-for-Uganda-Students-Drive.jpg'
 import salim from '../assets/images/He-Battled-Cancer-for-24-Years.jpg'
 import institute from '../assets/images/ccf-uci.jpg'
+import ccfCare from '../assets/images/ccf-cancer-care-compassion.jpg'
+import employmentInitiative from '../assets/images/kwizera-humanitarian-employment-initiative.jpg'
+import hotelEntrance from '../assets/images/gilbert-kwizera-hotel-entrance.jpg'
+import sanjayDutt from '../assets/images/gilbert-kwizera-sanjay-dutt.jpg'
+import marinaYacht from '../assets/images/gilbert-kwizera-dubai-marina-yacht.jpg'
 
 export const projects = [
   {
@@ -31,8 +36,9 @@ export const projects = [
     title: 'He Battled Cancer for 24 Years',
     category: 'Cancer care',
     date: '2006–2007',
-    image: salim,
-    imageAlt: 'Portrait of Salim Bwagu, published with his cancer-care story',
+    image: ccfCare,
+    heroImage: institute,
+    imageAlt: 'Gilbert Kevin Jimmy Kwizera Providing Compassionate Cancer Care Support in Uganda',
     summary:
       'Salim Bwagu lived with Hodgkin’s lymphoma from childhood. In 2006, support from Gilbert’s charity helped him complete treatment. He was cleared in 2007.',
     paragraphs: [
@@ -41,11 +47,59 @@ export const projects = [
       'In 2006, nearly twenty years after the first diagnosis, Salim met Gilbert Kevin Jimmy Kwizera. Through Gilbert’s charity, he received the financial support required to finish the full dosage. In 2007 he was cleared by the National Cancer Institute.',
       'Salim later founded the Chronic Disease Support Organisation to help other patients with the two barriers he knew well: money, and a lack of clear information. The story, as published, leaves three lessons: detect illness early, finish the course of treatment, and remember that community matters.',
     ],
-    tags: ['Cancer', 'Care'],
+    tags: ['Cancer', 'Care', 'CCF Foundation'],
     gallery: [
+      {
+        src: salim,
+        alt: 'Portrait of Salim Bwagu, published with his cancer-care story',
+      },
       {
         src: institute,
         alt: 'Uganda Cancer Institute, where specialised cancer treatment is centred in Kampala',
+      },
+    ],
+  },
+  {
+    slug: 'humanitarian-employment-initiative',
+    title: 'Supporting Africa Through Employment Awareness',
+    category: 'Humanitarian initiative',
+    date: '2026',
+    image: employmentInitiative,
+    imageAlt: 'Gilbert Kevin Jimmy Kwizera Humanitarian Initiative Supporting Africa Through Employment Awareness',
+    summary:
+      'A pan-African initiative providing verified employment information, free job updates, and community welfare guidance without charging recruitment fees.',
+    paragraphs: [
+      'Employment awareness and honest guidance are fundamental to poverty alleviation across Africa. Unscrupulous middlemen and exploitative recruitment agencies frequently target vulnerable job seekers.',
+      'Under the Gilbert Kevin Jimmy Kwizera Humanitarian Initiative, a clear commitment was established: provide free, verified employment information directly to communities across Uganda and Africa, with a strict zero-fee policy.',
+      'The initiative pairs job alerts with community health awareness and vocational literacy, empowering young men and women to find sustainable careers with confidence and dignity.',
+    ],
+    tags: ['Employment', 'Africa', 'Humanitarian', 'Youth'],
+    gallery: [
+      {
+        src: hotelEntrance,
+        alt: 'Gilbert Kevin Jimmy Kwizera championing international consultancy and employment advocacy',
+      },
+    ],
+  },
+  {
+    slug: 'global-cultural-dialogue-and-philanthropy',
+    title: 'Global Cultural Dialogue & Philanthropic Outreach',
+    category: 'Global outreach',
+    date: '2026',
+    image: sanjayDutt,
+    imageAlt: 'Gilbert Kevin Jimmy Kwizera with cultural icon Sanjay Dutt',
+    summary:
+      'Connecting global cultural leaders, healthcare advocates, and humanitarian initiatives across Africa, the UAE, and India.',
+    paragraphs: [
+      'Philanthropic impact accelerates when leaders across industries and continents unite for shared human values. Gilbert Kevin Jimmy Kwizera regularly meets with international icons and influencers to build dialogue on cancer care, recovery, and social responsibility.',
+      'In discussions with renowned cultural figures like Sanjay Dutt, focus is brought to resilience, destigmatizing recovery, and supporting vulnerable patients battling life-threatening illnesses.',
+      'These dialogues bridge the UAE, Africa, and global centres of culture, demonstrating how collaborative goodwill can mobilize resources and dignity-centred care worldwide.',
+    ],
+    tags: ['Global Outreach', 'Dialogue', 'Culture', 'Cancer Advocacy'],
+    gallery: [
+      {
+        src: marinaYacht,
+        alt: 'Gilbert Kevin Jimmy Kwizera in Dubai Marina during international consultations',
       },
     ],
   },

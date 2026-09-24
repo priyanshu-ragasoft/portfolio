@@ -13,7 +13,7 @@ export default function WorldMap() {
       <svg
         viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
         className="h-full w-full"
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="xMidYMax meet"
         role="img"
         aria-label="World map of the route from Uganda to Bangalore, back through Ethiopia and Dubai, then South Africa and Russia"
       >
@@ -61,7 +61,7 @@ export default function WorldMap() {
           ))}
         </g>
       </svg>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_42%,#0D0D0C_96%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,#0D0D0C_98%)]" />
       {journeyRoutes.map((route) => (
         <div
           key={route.id}

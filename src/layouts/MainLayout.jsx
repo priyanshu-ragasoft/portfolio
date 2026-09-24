@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import IntroTransition from '../components/IntroTransition/IntroTransition'
 import Navbar from '../components/Navbar'
 import PageMotion from '../components/PageMotion'
+import { useLenis } from '../hooks/useLenis'
 import Home from '../pages/Home'
 
 const AboutPage = lazy(() => import('../pages/AboutPage'))
@@ -39,6 +40,8 @@ export default function MainLayout() {
   const location = useLocation()
   const mainRef = useRef(null)
   const first = useRef(true)
+  // Initialize Lenis smooth scroll, wired into GSAP ticker + ScrollTrigger
+  useLenis()
 
   const finishIntro = useCallback(() => {
     document.documentElement.classList.remove('is-intro')

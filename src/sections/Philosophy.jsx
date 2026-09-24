@@ -8,12 +8,12 @@ export default function Philosophy() {
       data-parallax-bounds
     >
       <div data-philosophy-plate className="absolute inset-0">
-        <div data-parallax className="absolute inset-x-0 -top-[10%] h-[120%]">
+        <div data-parallax className="absolute inset-x-0 -top-[3%] h-[106%]">
           <img
-            src={profile.portrait}
+            src={profile.office || profile.portrait}
             alt=""
             aria-hidden="true"
-            className="h-full w-full object-cover object-center opacity-35"
+            className="h-full w-full object-cover object-[center_10%] opacity-35"
           />
         </div>
       </div>

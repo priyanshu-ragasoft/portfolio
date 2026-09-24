@@ -13,8 +13,8 @@ export default function Projects({ showHeading = true }) {
       <Container>
         {showHeading ? (
           <SectionHeading eyebrow="Selected work" title="Projects That Impact Lives">
-            Two published records of the work: practical support for a school in Fort Portal, and
-            the long cancer journey of Salim Bwagu.
+            Documented initiatives spanning education in Fort Portal, cancer care advocacy,
+            pan-African employment awareness, and global cultural dialogue.
           </SectionHeading>
         ) : null}
         <div className={`space-y-20 md:space-y-28 ${showHeading ? 'mt-16' : ''}`}>

@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useMemo, lazy, Suspense } from 'react'
 import { Mail, MapPin, Phone } from 'lucide-react'
-import { gsap } from '../animations/gsapConfig'
+import { gsap, prefersReducedMotion } from '../animations/gsapConfig'
 import Button from '../components/Button'
 import Container from '../components/Container'
+import hotelEntrance from '../assets/images/gilbert-kwizera-hotel-entrance.jpg'
 import { profile } from '../data/profile'
 import { useGSAP } from '../hooks/useGSAP'
+
+const ParticlesCanvas = lazy(() => import('../three/Particles/ParticlesCanvas'))
 
 const initial = { name: '', email: '', message: '' }
 
@@ -24,6 +27,8 @@ export default function Contact({ standalone = false }) {
   const [values, setValues] = useState(initial)
   const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)
+  const reduced = useMemo(() => prefersReducedMotion(), [])
+  const showParticles = !reduced && typeof window !== 'undefined' && window.innerWidth >= 768
 
   useGSAP(() => {
     if (!sent) return undefined
@@ -60,9 +65,17 @@ export default function Contact({ standalone = false }) {
     <section
       id="contact"
       data-scene="contact"
-      className={standalone ? 'bg-paper pt-32 pb-20 md:pt-40 md:pb-32' : 'bg-paper py-20 md:py-32'}
+      className={`relative overflow-hidden ${standalone ? 'bg-paper pt-32 pb-20 md:pt-40 md:pb-32' : 'bg-paper py-20 md:py-32'}`}
     >
-      <Container className="grid gap-14 lg:grid-cols-12">
+      {/* Subtle particle depth layer — behind all content, aria-hidden */}
+      {showParticles ? (
+        <Suspense fallback={null}>
+          <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+            <ParticlesCanvas count={60} reduced={reduced} />
+          </div>
+        </Suspense>
+      ) : null}
+      <Container className="relative z-10 grid gap-14 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <p data-contact-intro className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.22em] text-muted">
             <span className="h-px w-8 bg-bronze" aria-hidden="true" />
@@ -99,6 +112,20 @@ export default function Contact({ standalone = false }) {
               </a>
             </li>
           </ul>
+
+          <div data-contact-item className="mt-8 overflow-hidden border border-line bg-ivory">
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <img
+                src={hotelEntrance}
+                alt="Gilbert Kevin Jimmy Kwizera in Dubai"
+                className="h-full w-full object-cover object-[center_10%] transition-transform duration-700 hover:scale-105"
+              />
+            </div>
+            <div className="p-4">
+              <p className="font-serif text-sm font-medium text-ink">International Consultation & Humanitarian Office</p>
+              <p className="mt-1 text-xs text-muted">Le Pont, Port de la Mer, Jumeirah, Dubai</p>
+            </div>
+          </div>
         </div>
 
         <div className="border border-line bg-ivory p-6 sm:p-8 lg:col-span-6 lg:col-start-7">

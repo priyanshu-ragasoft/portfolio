@@ -12,7 +12,7 @@ export default function FeaturedStory() {
           <div data-parallax className="absolute inset-x-0 -top-[8%] h-[116%]">
             <img
               data-feature-photo
-              src={story.image}
+              src={story.heroImage || story.image}
               alt={story.imageAlt}
               className="h-full w-full object-cover object-[center_20%]"
             />

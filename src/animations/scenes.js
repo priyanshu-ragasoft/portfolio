@@ -381,6 +381,13 @@ function animateMissing(section, compact) {
   enter(link, { opacity: 0, y: 14 }, { trigger: link || section, compact, duration: 0.55, delay: 0.08 })
 }
 
+function animateFooter(footer, compact) {
+  const cols = footer.querySelectorAll('[data-footer-col]')
+  const base = footer.querySelector('[data-footer-base]')
+  enter(cols, { opacity: 0, y: compact ? 20 : 32 }, { trigger: footer, stagger: 0.1, compact, duration: 0.85 })
+  enter(base, { opacity: 0 }, { trigger: base || footer, compact, duration: 0.6 })
+}
+
 const scenes = {
   intro: animateIntro,
   about: animateAbout,
@@ -405,6 +412,9 @@ export function initScenes(root) {
       const run = scenes[section.dataset.scene]
       if (run) run(section, compact)
     })
+    // Animate footer (lives outside [data-motion-root] but in the same page)
+    const footer = document.querySelector('footer')
+    if (footer) animateFooter(footer, compact)
   }
   mm.add('(max-width: 767px)', () => setup(true))
   mm.add('(min-width: 768px)', () => setup(false))

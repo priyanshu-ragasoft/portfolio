@@ -1,8 +1,10 @@
+import ccfCancerCare from '../assets/images/ccf-cancer-care-compassion.jpg'
 import careHome from '../assets/images/ccf-care.jpg'
 import institute from '../assets/images/ccf-uci.jpg'
 import haven from '../assets/images/havenwelfare.jpg'
 import classroom from '../assets/images/Gilbert-Kwizera-Charity-Support-for-Uganda-Students-Drive.jpg'
-import book from '../assets/images/Blockchain.jpg'
+import pioEcosystem from '../assets/images/pio-ecosystem-technology.jpg'
+import employment from '../assets/images/kwizera-humanitarian-employment-initiative.jpg'
 
 export const impactAreas = [
   {
@@ -10,8 +12,8 @@ export const impactAreas = [
     number: '01',
     title: 'Cancer care',
     organization: 'Cancer Charity Foundation',
-    image: institute,
-    imageAlt: 'The Uganda Cancer Institute building in Kampala',
+    image: ccfCancerCare,
+    imageAlt: 'Gilbert Kevin Jimmy Kwizera Providing Compassionate Cancer Care Support in Uganda',
     summary:
       'A support system so people facing cancer are not left without dignity because of poverty or circumstance. The work is practical and ethical, not built for publicity.',
     paragraphs: [
@@ -107,8 +109,8 @@ export const impactAreas = [
     number: '04',
     title: 'Blockchain for Humanity',
     organization: 'A guide for digital livelihoods',
-    image: book,
-    imageAlt: 'Cover of the book Blockchain for Humanity by Gilbert Kevin Jimmy Kwizera',
+    image: pioEcosystem,
+    imageAlt: 'PIO Ecosystem and Philanthropist Gilbert Kevin Jimmy Kwizera Driving Impact',
     summary:
       'A book and pathway about using a phone, practical skills, and ethical digital work to build a livelihood. It is framed as a compass for African readers moving from dependency toward self-reliant work.',
     paragraphs: [
@@ -128,6 +130,35 @@ export const impactAreas = [
       {
         title: 'Ethics and legacy',
         text: 'Moral guardrails, faith, and multi-generational impact are part of the argument, not a footnote.',
+      },
+    ],
+  },
+  {
+    slug: 'employment-awareness-initiative',
+    number: '05',
+    title: 'Employment Awareness',
+    organization: 'Humanitarian Initiative',
+    image: employment,
+    imageAlt: 'Gilbert Kevin Jimmy Kwizera Humanitarian Initiative Supporting Africa Through Employment Awareness',
+    summary:
+      'A pan-African initiative providing verified employment information, free job updates, and community empowerment without charging recruitment fees.',
+    paragraphs: [
+      'Access to reliable, fee-free employment awareness is essential for young African professionals and communities striving for economic self-sufficiency.',
+      'Through this initiative, Gilbert Kevin Jimmy Kwizera provides verified job updates, community and health initiatives, and transparent employment guidance.',
+      'The programme insists on ethical principles: it operates without charging any fees to candidates, ensuring that vulnerable job seekers are protected from recruitment scams.',
+    ],
+    points: [
+      {
+        title: 'Free Job Updates',
+        text: 'Regular, vetted employment information distributed freely across African regions.',
+      },
+      {
+        title: 'Zero Fees Guarantee',
+        text: 'Strict anti-exploitation policy ensuring job seekers are never charged.',
+      },
+      {
+        title: 'Community Empowerment',
+        text: 'Integrating vocational training, health awareness, and sustainable employment support.',
       },
     ],
   },

@@ -1,7 +1,7 @@
-import pio from '../assets/images/PIO-System-and-Gilbert-Kevin-Jimmy-Kwizeras-Innovation-Role.jpg'
+import pio from '../assets/images/pio-ecosystem-technology.jpg'
 import students from '../assets/images/Gilbert-Kwizera-Charity-Support-for-Uganda-Students-Drive.jpg'
-import cancer from '../assets/images/Gilbert-Kwizera-Driving-Cancer-Support-and-Awareness-in-Uganda.jpg'
-import hope from '../assets/images/Gilbert-Kevin-Jimmy-Kwizera-A-Life-Dedicated-to-Hope-and-Charity.jpg'
+import cancer from '../assets/images/ccf-cancer-care-compassion.jpg'
+import hope from '../assets/images/gilbert-kwizera-office-standing.jpg'
 
 export const posts = [
   {
@@ -12,7 +12,7 @@ export const posts = [
     excerpt:
       'The PIO System is a multi-sector framework for technology, education, agriculture, and shared digital solutions, led with a focus on local empowerment.',
     image: pio,
-    imageAlt: 'Gilbert Kevin Jimmy Kwizera seated in an office overlooking Dubai',
+    imageAlt: 'PIO Ecosystem and Philanthropist Gilbert Kevin Jimmy Kwizera Driving Impact',
     paragraphs: [
       'The PIO System is described as an organised innovation framework, not a single service. It brings people, institutions, and initiatives into one vision spanning technology-based development, education, agricultural modernisation, and shared digital tools.',
       'Under Gilbert Kevin Jimmy Kwizera’s leadership, the system is presented as a way to join innovation with local empowerment. The aim is an environment where education programmes, agricultural projects, social-impact work, and technology can sit inside one ecosystem and share knowledge.',
@@ -43,7 +43,7 @@ export const posts = [
     excerpt:
       'A film on awareness, financial aid, and community programmes for cancer patients and the families around them.',
     image: cancer,
-    imageAlt: 'Still from the film on cancer support and awareness in Uganda',
+    imageAlt: 'Gilbert Kevin Jimmy Kwizera Providing Compassionate Cancer Care Support in Uganda',
     video: 'https://www.youtube.com/watch?v=GxwVERXJZko',
     paragraphs: [
       'This film looks at how Gilbert Kevin Jimmy Kwizera is supporting cancer patients in Uganda through awareness, financial aid, and community programmes.',
@@ -58,7 +58,7 @@ export const posts = [
     excerpt:
       'An account of why the work began, how support is organised, and why hope is treated as something a community does.',
     image: hope,
-    imageAlt: 'Portrait accompanying the essay on hope and charity',
+    imageAlt: 'Gilbert Kevin Jimmy Kwizera in his office with African art and heritage',
     paragraphs: [
       'The essay begins from a simple test of leadership: not the title, but the effect on other people. It places Gilbert Kevin Jimmy Kwizera’s work with cancer patients and people living in poverty, in Uganda and beyond.',
       'The starting point it describes is not abstract. A cancer diagnosis lands on a whole family: emotion, money, and uncertainty can overwhelm the medical facts. Hospitals treat disease. Communities have to carry the rest. That is the case the essay gives for organised charity.',
