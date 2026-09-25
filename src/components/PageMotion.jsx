@@ -1,5 +1,6 @@
-import { useRef } from 'react'
-import { ScrollTrigger } from '../animations/gsapConfig'
+import { useLayoutEffect, useRef } from 'react'
+import { initDisintegration } from '../animations/disintegration'
+import { prefersReducedMotion, ScrollTrigger } from '../animations/gsapConfig'
 import { playHero } from '../animations/heroAnimations'
 import { initImageMotion } from '../animations/imageAnimations'
 import { initInteractions } from '../animations/interactions'
@@ -22,6 +23,7 @@ export default function PageMotion() {
     initScrollReveals(scope)
     initTextReveals(scope)
     initImageMotion(scope)
+    const releaseChunks = initDisintegration(scope)
     const release = initInteractions(scope)
 
     const refresh = () => ScrollTrigger.refresh()
@@ -31,9 +33,17 @@ export default function PageMotion() {
     requestAnimationFrame(refresh)
 
     return () => {
+      releaseChunks?.()
       release?.()
       scope.querySelectorAll('img').forEach((img) => img.removeEventListener('load', refresh))
     }
+  }, [])
+
+  useLayoutEffect(() => {
+    if (!prefersReducedMotion()) return undefined
+    const scope = markerRef.current?.closest('[data-motion-root]')
+    if (!scope) return undefined
+    return initDisintegration(scope)
   }, [])
 
   return <span ref={markerRef} className="hidden" />

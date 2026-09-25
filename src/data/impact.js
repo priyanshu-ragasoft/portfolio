@@ -139,6 +139,8 @@ export const impactAreas = [
     title: 'Employment Awareness',
     organization: 'Humanitarian Initiative',
     image: employment,
+    imageFit: 'contain',
+    imageTrim: { aspect: '1536 / 660', top: '-31.06%', height: '155.15%' },
     imageAlt: 'Gilbert Kevin Jimmy Kwizera Humanitarian Initiative Supporting Africa Through Employment Awareness',
     summary:
       'A pan-African initiative providing verified employment information, free job updates, and community empowerment without charging recruitment fees.',

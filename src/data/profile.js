@@ -36,7 +36,7 @@ export const navLinks = [
   { label: 'Journey', to: '/#journey' },
   { label: 'Impact', to: '/#impact' },
   { label: 'Projects', to: '/projects' },
-  { label: 'Archive', to: '/#gallery' },
+  { label: 'Archive', to: '/archive' },
   { label: 'Insights', to: '/insights' },
   { label: 'Contact', to: '/contact' },
 ]

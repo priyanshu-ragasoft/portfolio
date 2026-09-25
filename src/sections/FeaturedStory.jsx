@@ -1,14 +1,19 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
+import ScrollReveal from '../components/ScrollReveal'
+import { useImageReveal } from '../hooks/useImageReveal'
 import { projects } from '../data/projects'
 
 export default function FeaturedStory() {
+  const visualRef = useRef(null)
+  useImageReveal(visualRef, { direction: 'up' })
   const story = projects.find((project) => project.slug === 'he-battled-cancer-for-24-years')
 
   return (
     <section data-scene="feature" className="bg-ink text-paper">
       <div className="relative min-h-[78svh] overflow-hidden" data-parallax-bounds>
-        <div data-feature-visual className="absolute inset-0">
+        <div ref={visualRef} data-feature-visual className="absolute inset-0">
           <div data-parallax className="absolute inset-x-0 -top-[8%] h-[116%]">
             <img
               data-feature-photo
@@ -23,14 +28,16 @@ export default function FeaturedStory() {
           data-feature-overlay
           className="relative z-10 mx-auto flex min-h-[78svh] max-w-[1180px] flex-col justify-end px-5 pt-28 pb-16 sm:px-8"
         >
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-paper/75">
+          <ScrollReveal type="text" as="p" className="text-xs font-medium uppercase tracking-[0.22em] text-paper/75">
             Featured story · Cancer care
-          </p>
-          <h2 className="display mt-4 max-w-3xl text-5xl sm:text-7xl">{story.title}</h2>
+          </ScrollReveal>
+          <ScrollReveal type="text" as="h2" className="display mt-4 max-w-3xl text-5xl sm:text-7xl">
+            {story.title}
+          </ScrollReveal>
         </div>
       </div>
       <div className="mx-auto grid max-w-[1180px] gap-8 px-5 py-16 sm:px-8 md:grid-cols-12 md:py-20">
-        <div data-feature-copy className="md:col-span-7">
+        <ScrollReveal type="block" stagger={0.1} data-feature-copy className="md:col-span-7">
           <p className="text-lg leading-relaxed text-paper/85">
             Salim Bwagu was a child when Hodgkin’s lymphoma entered his life. Nearly twenty years
             later, in 2006, support from Gilbert’s charity made it possible to finish treatment. In
@@ -44,7 +51,7 @@ export default function FeaturedStory() {
           <Button to={`/projects/${story.slug}`} variant="light" className="mt-8">
             Read the Story
           </Button>
-        </div>
+        </ScrollReveal>
         <p data-feature-aside className="text-sm leading-relaxed text-mist md:col-span-4 md:col-start-9">
           Told with Salim’s name, his family’s, and the dates in the original record — from Mulago
           in 1987 to the National Cancer Institute in 2007.{' '}

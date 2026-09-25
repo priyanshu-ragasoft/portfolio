@@ -23,7 +23,7 @@ function buildHero(section, compact) {
   if (actions.length) gsap.set(actions, { opacity: 0, y: distance(16, compact) })
   if (indicator) gsap.set(indicator, { opacity: 0, y: distance(10, compact) })
   if (image) gsap.set(image, { scale: compact ? 1.08 : 1.14, willChange: 'transform' })
-  if (veil) gsap.set(veil, { opacity: 1 })
+  if (veil) gsap.set(veil, { opacity: 0 })
 
   const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
@@ -38,10 +38,6 @@ function buildHero(section, compact) {
       },
       0,
     )
-  }
-
-  if (veil) {
-    timeline.to(veil, { opacity: 0, duration: 1.1, ease: 'power2.out' }, 0.2)
   }
 
   if (kicker) {

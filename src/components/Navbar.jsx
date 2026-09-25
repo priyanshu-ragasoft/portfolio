@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { gsap, prefersReducedMotion } from '../animations/gsapConfig'
 import { navLinks, profile } from '../data/profile'
+import { lenis } from '../hooks/useLenis'
 import Button from './Button'
 import Logo from './Logo'
 
@@ -81,6 +82,42 @@ export default function Navbar() {
   const light = pathname === '/' && !solid
   const close = () => setMenuPath(null)
 
+  const handleNavClick = (e, to) => {
+    close()
+    if (to.startsWith('/#') && pathname === '/') {
+      const hashTarget = document.querySelector(to.slice(1))
+      if (hashTarget) {
+        e.preventDefault()
+        window.history.pushState(null, '', to)
+        if (lenis) {
+          lenis.scrollTo(hashTarget, { offset: -80, duration: 1.1 })
+        } else {
+          hashTarget.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+      return
+    }
+
+    // Standard route links (e.g. /insights, /contact, /about, /projects, /archive, /)
+    if (!to.includes('#')) {
+      if (pathname === to) {
+        // Already on this page: smooth scroll to the top
+        e.preventDefault()
+        if (lenis) {
+          lenis.scrollTo(0, { duration: 0.9 })
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      } else {
+        // Navigating to another page: reset immediately to top
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true })
+        }
+        window.scrollTo(0, 0)
+      }
+    }
+  }
+
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 transition-colors duration-300">
@@ -89,18 +126,18 @@ export default function Navbar() {
           className="absolute inset-0 border-b border-line bg-paper/88 opacity-0 backdrop-blur-md transition-all duration-300"
           aria-hidden="true"
         />
-        <div className="relative mx-auto flex h-20 sm:h-24 max-w-[1180px] items-center justify-between px-5 sm:px-8">
+        <div className="relative mx-auto flex h-20 max-w-[1180px] items-center px-5 sm:h-24 sm:px-8">
           <Link
             to="/"
             data-nav-logo
             aria-label={profile.name}
-            className={`relative z-10 inline-flex transition-transform duration-300 origin-left ${scrolled ? 'scale-105' : 'scale-100'}`}
-            onClick={close}
+            className={`relative z-10 inline-flex origin-left transition-transform duration-300 ${scrolled ? 'scale-105' : 'scale-100'}`}
+            onClick={(e) => handleNavClick(e, '/')}
           >
-            <Logo priority className={`h-16 w-auto sm:h-20 transition-all duration-300 drop-shadow-sm ${!light ? 'brightness-0' : ''}`} />
+            <Logo priority className={`h-16 w-auto drop-shadow-sm transition-all duration-300 sm:h-20 ${!light ? 'brightness-0' : ''}`} />
           </Link>
 
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex" aria-label="Primary">
             {navLinks.map((link) => {
               const active = isActive(link.to, pathname, hash)
               return (
@@ -108,20 +145,43 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   data-nav-link
+                  onClick={(e) => handleNavClick(e, link.to)}
                   aria-current={active ? 'page' : undefined}
-                  className={`text-sm tracking-wide transition-colors ${
-                    light ? 'text-paper/80 hover:text-paper' : 'text-muted hover:text-ink'
-                  } ${active ? (light ? 'text-paper' : 'text-ink') : ''}`}
+                  className={`relative py-1 text-[0.82rem] tracking-[0.04em] transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-center after:bg-bronze after:transition-transform after:duration-300 ${
+                    active ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'
+                  } ${light ? 'text-paper/80 hover:text-paper' : 'text-muted hover:text-ink'} ${
+                    active ? (light ? 'text-paper' : 'text-ink') : ''
+                  }`}
                 >
                   {link.label}
                 </Link>
               )
             })}
-            <Button to="/contact" data-nav-link variant={light ? 'light' : 'solid'} className="ml-2 px-5">
-              Let&apos;s Connect
-            </Button>
           </nav>
 
+          <div className="relative z-10 ml-auto flex items-center">
+            <Link
+              to="/contact"
+              data-nav-link
+              onClick={(e) => handleNavClick(e, '/contact')}
+              className={`group relative hidden min-h-11 items-center gap-2.5 rounded-full pl-5 pr-2.5 text-[0.88rem] font-medium tracking-wide transition-all duration-300 hover:scale-[1.03] lg:inline-flex ${
+                light
+                  ? 'bg-paper text-ink shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:bg-white hover:shadow-[0_8px_25px_rgba(255,255,255,0.25)]'
+                  : 'bg-bronze text-paper shadow-[0_6px_20px_rgba(141,112,67,0.35)] hover:bg-ink hover:shadow-[0_8px_25px_rgba(23,21,19,0.4)]'
+              }`}
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-0.5">Donation</span>
+              <span
+                className={`flex h-7 w-7 items-center justify-center rounded-full transition-all duration-300 ${
+                  light
+                    ? 'bg-ink/10 text-ink group-hover:bg-ink group-hover:text-paper'
+                    : 'bg-white/20 text-paper group-hover:bg-paper group-hover:text-ink'
+                }`}
+              >
+                {/* Diagonal arrow rotates 45deg clockwise to become straight right on hover */}
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:rotate-45 group-hover:translate-x-0.5" />
+              </span>
+            </Link>
           <button
             type="button"
             className={`relative z-10 inline-flex h-11 w-11 items-center justify-center lg:hidden ${light ? 'text-paper' : 'text-ink'}`}
@@ -132,6 +192,7 @@ export default function Navbar() {
           >
             <Menu className="h-6 w-6" />
           </button>
+          </div>
         </div>
       </header>
 
@@ -164,7 +225,7 @@ export default function Navbar() {
                   to="/"
                   aria-label={profile.name}
                   className="inline-flex"
-                  onClick={close}
+                  onClick={(e) => handleNavClick(e, '/')}
                 >
                   <Logo priority className="h-16 w-auto sm:h-20 brightness-0 drop-shadow-sm" />
                 </Link>
@@ -192,7 +253,7 @@ export default function Navbar() {
                         key={link.to}
                         to={link.to}
                         data-menu-item
-                        onClick={close}
+                        onClick={(e) => handleNavClick(e, link.to)}
                         aria-current={active ? 'page' : undefined}
                         className={`display py-2.5 sm:py-3 text-[1.65rem] sm:text-3xl transition-colors hover:text-bronze ${
                           active ? 'text-bronze font-semibold' : 'text-ink'
@@ -209,13 +270,16 @@ export default function Navbar() {
                   className="pt-5 pb-8 sm:pb-10"
                   style={{ paddingBottom: 'max(2.5rem, calc(env(safe-area-inset-bottom) + 1.5rem))' }}
                 >
-                  <Button
+                  <Link
                     to="/contact"
-                    onClick={close}
-                    className="w-full justify-center text-center py-3.5 shadow-sm text-base"
+                    onClick={(e) => handleNavClick(e, '/contact')}
+                    className="group flex w-full items-center justify-center gap-3 rounded-full bg-bronze py-4 text-center text-lg font-medium text-paper shadow-[0_10px_22px_-14px_rgba(141,112,67,0.95)] transition-all duration-300 hover:bg-ink"
                   >
-                    Let&apos;s Connect
-                  </Button>
+                    <span className="transition-transform duration-300 group-hover:translate-x-0.5">Donation</span>
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-paper transition-all duration-300 group-hover:bg-paper group-hover:text-ink">
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:rotate-45 group-hover:translate-x-0.5" />
+                    </span>
+                  </Link>
                 </div>
               </nav>
             </div>,

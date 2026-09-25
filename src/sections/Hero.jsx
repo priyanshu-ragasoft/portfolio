@@ -26,8 +26,8 @@ export default function Hero() {
   useHeroScrollAnimation(heroRef)
 
   return (
-    <section ref={heroRef} data-hero className="relative bg-ink text-paper">
-      <div data-hero-stage className="relative min-h-[100svh] overflow-hidden">
+    <section ref={heroRef} data-hero className="pointer-events-none relative z-20 bg-transparent text-paper">
+      <div data-hero-stage className="relative min-h-[100svh] overflow-hidden bg-transparent">
         <div data-hero-frame className="absolute inset-x-0 -top-[2%] h-[106%]">
           <div data-hero-parallax="deep" className="absolute inset-0 h-full w-full will-change-transform">
             <img
@@ -49,9 +49,9 @@ export default function Hero() {
             ) : null}
           </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25 sm:bg-gradient-to-r sm:from-ink sm:via-ink/80 sm:to-ink/15" />
-        <div data-hero-veil className="absolute inset-0 bg-ink opacity-0" />
-        <div data-hero-overlay className="pointer-events-none absolute inset-0 bg-black" aria-hidden="true" />
+        <div data-hero-scrim className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25 sm:bg-gradient-to-r sm:from-ink sm:via-ink/80 sm:to-ink/15" />
+        <div data-hero-veil className="pointer-events-none absolute inset-0 bg-ink opacity-0" />
+        <div data-hero-overlay className="pointer-events-none absolute inset-0 bg-black/10" aria-hidden="true" />
         <div
           data-hero-bloom
           className="pointer-events-none absolute left-[18%] top-[12%] z-[2] h-[55%] w-[42%] rounded-full bg-[#C9A15A]/25 blur-3xl sm:left-[38%] sm:top-[8%] sm:h-[62%] sm:w-[34%]"
@@ -76,9 +76,9 @@ export default function Hero() {
           </p>
 
           <div data-hero-heading className="relative mt-5 max-w-4xl">
-            <h1 className="display text-[clamp(2.55rem,11vw,7.4rem)] text-paper">
+            <h1 className="display text-[clamp(2.55rem,11vw,7.4rem)] leading-[1.08] text-paper">
               {lines.map((line) => (
-                <span key={line} className="block overflow-hidden pb-1">
+                <span key={line} className="block overflow-hidden pb-[0.14em]">
                   <span data-hero-line className="block">
                     {line}
                   </span>
@@ -115,12 +115,12 @@ export default function Hero() {
             in cancer care, recovery, education, and the quiet work of protecting dignity.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <span data-hero-action>
+            <span data-hero-action className="pointer-events-auto">
               <Button to="/#journey" variant="light">
                 Explore My Journey
               </Button>
             </span>
-            <span data-hero-action>
+            <span data-hero-action className="pointer-events-auto">
               <Button to="/contact" variant="ghost" className="text-paper hover:bg-paper hover:text-ink">
                 Let&apos;s Connect
               </Button>
@@ -144,23 +144,6 @@ export default function Hero() {
               <ArrowDown className="mt-1 h-4 w-4" aria-hidden="true" />
             </div>
             <span className="sr-only">Scroll</span>
-          </div>
-        </div>
-
-        <div
-          data-hero-reveal
-          className="pointer-events-none absolute inset-0 z-20 flex items-end bg-paper px-5 pb-16 pt-28 sm:px-8 sm:pb-20"
-          aria-hidden="true"
-        >
-          <div className="mx-auto w-full max-w-[1180px]">
-            <p className="font-sans text-xs tracking-[0.22em] text-muted uppercase">Next chapter</p>
-            <h2 className="display mt-4 max-w-3xl text-4xl text-ink sm:text-6xl lg:text-7xl">
-              A Life Dedicated to
-              <span className="block italic">Service, Dignity, and Hope.</span>
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted">
-              Humanitarian leadership, ethical consultancy, and quiet work that protects dignity.
-            </p>
           </div>
         </div>
       </div>

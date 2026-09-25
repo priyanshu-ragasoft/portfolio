@@ -93,6 +93,7 @@ export default function AboutPortrait3D({ className = '' }) {
       className={`group relative mx-auto max-w-[420px] cursor-pointer select-none py-6 ${className}`}
       style={{ perspective: '1200px' }}
       data-cursor="view"
+      data-sr-ignore
     >
       {/* 3D Atmospheric ambient glow behind portrait */}
       <div

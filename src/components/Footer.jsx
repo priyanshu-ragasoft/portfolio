@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUp, ArrowUpRight, Mail, MapPin, Phone, ShieldCheck, HeartHandshake } from 'lucide-react'
 import { navLinks, profile, socials } from '../data/profile'
 import Logo from './Logo'
+import ScrollReveal from './ScrollReveal'
 import { lenis } from '../hooks/useLenis'
 
 // Bespoke, pixel-perfect brand icons for luxury dark background
@@ -42,6 +43,29 @@ export default function Footer() {
     }
   }
 
+  const handleFooterLinkClick = (e, to) => {
+    if (to.startsWith('/#')) {
+      const hashTarget = document.querySelector(to.slice(1))
+      if (hashTarget) {
+        e.preventDefault()
+        window.history.pushState(null, '', to)
+        if (lenis) {
+          lenis.scrollTo(hashTarget, { offset: -80, duration: 1.1 })
+        } else {
+          hashTarget.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+      return
+    }
+
+    if (!to.includes('#')) {
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true })
+      }
+      window.scrollTo(0, 0)
+    }
+  }
+
   return (
     <footer className="relative border-t border-line/20 bg-[#0d0c0a] text-paper overflow-hidden selection:bg-bronze/30 selection:text-white">
       {/* Ambient luxury lighting */}
@@ -57,11 +81,12 @@ export default function Footer() {
       {/* Top Executive Horizon Bar */}
 
       {/* Main Architectural Grid */}
-      <div className="mx-auto grid max-w-[1180px] gap-12 px-5 py-16 sm:px-8 md:grid-cols-12 md:py-20 lg:gap-14">
+      <ScrollReveal type="block" stagger={0.08} className="mx-auto grid max-w-[1180px] gap-12 px-5 py-16 sm:px-8 md:grid-cols-12 md:py-20 lg:gap-14">
         {/* Brand & Mission Column */}
         <div data-footer-col className="md:col-span-12 lg:col-span-4">
           <Link
             to="/"
+            onClick={(e) => handleFooterLinkClick(e, '/')}
             aria-label={profile.name}
             className="group inline-flex items-center transition-transform duration-300 hover:scale-[1.02]"
           >
@@ -96,6 +121,7 @@ export default function Footer() {
               <li key={link.to}>
                 <Link
                   to={link.to}
+                  onClick={(e) => handleFooterLinkClick(e, link.to)}
                   className="group inline-flex items-center text-sm text-mist/80 transition-all duration-200 hover:translate-x-1 hover:text-paper"
                 >
                   <span className="h-px w-0 bg-bronze transition-all duration-200 group-hover:w-2.5 group-hover:mr-2" />
@@ -113,7 +139,11 @@ export default function Footer() {
           </p>
           <ul className="mt-5 space-y-3.5 text-xs text-mist/85">
             <li className="group">
-              <Link to="/impact/cancer-charity-foundation" className="block">
+              <Link
+                to="/impact/cancer-charity-foundation"
+                onClick={(e) => handleFooterLinkClick(e, '/impact/cancer-charity-foundation')}
+                className="block"
+              >
                 <span className="font-medium text-paper flex items-center gap-1 group-hover:text-bronze transition-colors">
                   Cancer Charity Foundation
                   <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -124,7 +154,11 @@ export default function Footer() {
               </Link>
             </li>
             <li className="group">
-              <Link to="/impact/haven-welfare" className="block">
+              <Link
+                to="/impact/haven-welfare"
+                onClick={(e) => handleFooterLinkClick(e, '/impact/haven-welfare')}
+                className="block"
+              >
                 <span className="font-medium text-paper flex items-center gap-1 group-hover:text-bronze transition-colors">
                   Haven Welfare
                   <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -135,7 +169,11 @@ export default function Footer() {
               </Link>
             </li>
             <li className="group">
-              <Link to="/impact/isbet-brainery" className="block">
+              <Link
+                to="/impact/isbet-brainery"
+                onClick={(e) => handleFooterLinkClick(e, '/impact/isbet-brainery')}
+                className="block"
+              >
                 <span className="font-medium text-paper flex items-center gap-1 group-hover:text-bronze transition-colors">
                   Education &amp; Skills
                   <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -219,7 +257,7 @@ export default function Footer() {
             <span>Strict confidentiality for diplomatic &amp; advisory inquiries</span>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* Colophon & Copyright Bar */}
       <div data-footer-base className="border-t border-white/[0.08] bg-black/40">
@@ -227,8 +265,23 @@ export default function Footer() {
           <p className="tracking-wide">
             © 2026 {profile.name}. All rights reserved.
           </p>
-
-
+          <nav aria-label="Legal" className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <Link
+              to="/privacy"
+              onClick={(e) => handleFooterLinkClick(e, '/privacy')}
+              className="transition-colors hover:text-paper"
+            >
+              Privacy Policy
+            </Link>
+            <span aria-hidden="true" className="text-white/25">|</span>
+            <Link
+              to="/terms"
+              onClick={(e) => handleFooterLinkClick(e, '/terms')}
+              className="transition-colors hover:text-paper"
+            >
+              Terms & Conditions
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

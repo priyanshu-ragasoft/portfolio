@@ -10,7 +10,7 @@ export default function BlogCard({ post, layout = 'row' }) {
       <article
         data-lift
         data-cursor="view"
-        className="group relative flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-[#e3dbd1] bg-gradient-to-b from-[#faf8f4] to-[#f4efe8] p-3 sm:p-4 shadow-[0_4px_24px_-6px_rgba(20,19,17,0.06)] transition-all duration-500 hover:border-[#C9A15A]/80 hover:shadow-[0_24px_56px_-12px_rgba(141,112,67,0.22)] hover:-translate-y-1.5"
+        className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#e3dbd1] bg-gradient-to-b from-[#faf8f4] to-[#f4efe8] shadow-[0_4px_24px_-6px_rgba(20,19,17,0.06)] transition-all duration-500 hover:border-[#C9A15A]/80 hover:shadow-[0_24px_56px_-12px_rgba(141,112,67,0.22)] hover:-translate-y-1.5 sm:rounded-3xl"
       >
         {/* Top Gold Laser Accent Line */}
         <div
@@ -18,58 +18,15 @@ export default function BlogCard({ post, layout = 'row' }) {
           aria-hidden="true"
         />
 
-        {/* Media Frame with Luxury Badges */}
-        <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
+        {/* Clean, natural image frame without dark overlays or shimmer filters */}
+        <div className="relative overflow-hidden">
           <ImageFrame
             src={post.image}
             alt={post.imageAlt}
-            className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            shape="flush"
+            hoverEffect={false}
+            className="aspect-[16/10] w-full object-cover"
           />
-
-          {/* Shimmer Light Sweep on Hover */}
-          <div
-            className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 transition-transform duration-1000 ease-in-out group-hover:translate-x-[200%]"
-            aria-hidden="true"
-          />
-
-          {/* Dark Contrast Vignette */}
-          <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/30"
-            aria-hidden="true"
-          />
-
-          {/* Top-Left: Category Floating Glass Badge */}
-          <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full border border-white/25 bg-black/60 px-3 py-1 backdrop-blur-md shadow-md transition-transform duration-300 group-hover:scale-105">
-            <Sparkles className="h-2.5 w-2.5 text-[#C9A15A]" />
-            <span className="font-sans text-[0.62rem] sm:text-[0.68rem] font-semibold tracking-wider text-[#fae8be] uppercase">
-              {post.category}
-            </span>
-          </div>
-
-          {/* Top-Right: Reading Time Badge */}
-          {post.readTime && (
-            <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/55 px-2.5 py-1 backdrop-blur-md text-[0.6rem] font-mono text-[#fae8be]/90">
-              <Clock className="h-3 w-3 text-[#C9A15A]" />
-              <span>{post.readTime}</span>
-            </div>
-          )}
-
-          {/* Bottom Badge Bar */}
-          <div className="absolute bottom-2.5 inset-x-2.5 z-10 flex items-center justify-between rounded-lg border border-white/15 bg-black/50 px-3 py-1.5 backdrop-blur-md">
-            <span className="font-sans text-[0.62rem] sm:text-[0.68rem] tracking-wider text-[#d9d0c4] uppercase flex items-center gap-1.5">
-              {post.videoFile ? (
-                <>
-                  <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-                  Film Documentary
-                </>
-              ) : (
-                'Featured Insight'
-              )}
-            </span>
-            <span className="font-mono text-[0.6rem] sm:text-[0.66rem] text-[#fae8be]">
-              {post.date}
-            </span>
-          </div>
         </div>
 
         {/* Content Body */}
@@ -114,18 +71,15 @@ export default function BlogCard({ post, layout = 'row' }) {
       data-cursor="view"
       className="group relative flex flex-col sm:flex-row gap-4 sm:gap-5 overflow-hidden rounded-2xl border border-[#e3dbd1]/80 bg-gradient-to-b from-[#faf8f4] to-[#f4efe8] p-3 sm:p-3.5 transition-all duration-300 hover:border-[#C9A15A]/70 hover:shadow-[0_16px_36px_-8px_rgba(141,112,67,0.16)] hover:-translate-y-1"
     >
-      {/* Side Image Frame with Zoom & Rounded Corners */}
+      {/* Side Image Frame - Clean and Natural */}
       <div className="relative w-full sm:w-[170px] lg:w-[200px] shrink-0 overflow-hidden rounded-xl aspect-[16/10] sm:aspect-[4/3]">
         <ImageFrame
           src={post.image}
           alt={post.imageAlt}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-108"
+          hoverEffect={false}
+          className="h-full w-full object-cover"
         />
-        <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
-          aria-hidden="true"
-        />
-        <span className="absolute bottom-2 left-2 z-10 rounded bg-black/60 px-2 py-0.5 text-[0.56rem] font-semibold tracking-wider text-[#fae8be] uppercase backdrop-blur-sm flex items-center gap-1">
+        <span className="absolute bottom-2 left-2 z-10 rounded bg-black/70 px-2 py-0.5 text-[0.56rem] font-semibold tracking-wider text-[#fae8be] uppercase backdrop-blur-sm flex items-center gap-1">
           {post.videoFile ? (
             <>
               <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />

@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import ImageFrame from '../components/ImageFrame'
 import PageMeta from '../components/PageMeta'
+import ScrollReveal from '../components/ScrollReveal'
 import { impactAreas } from '../data/impact'
 
 export default function ImpactDetail() {
@@ -29,27 +30,29 @@ export default function ImpactDetail() {
           <p data-detail="meta" className="text-xs font-medium uppercase tracking-[0.2em] text-bronze">
             {area.number}
           </p>
-          <h1 data-detail="title" className="display mt-3 max-w-4xl text-5xl text-ink sm:text-7xl">
+          <ScrollReveal type="text" as="h1" data-detail="title" className="display mt-3 max-w-4xl text-5xl text-ink sm:text-7xl">
             {area.title}
-          </h1>
-          <p data-detail="standfirst" className="mt-4 text-lg text-ink">
-            {area.organization}
-          </p>
-          <p data-detail="standfirst" className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-            {area.summary}
-          </p>
+          </ScrollReveal>
+          <ScrollReveal type="block" stagger={0.1}>
+            <p data-detail="standfirst" className="mt-4 text-lg text-ink">
+              {area.organization}
+            </p>
+            <p data-detail="standfirst" className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+              {area.summary}
+            </p>
+          </ScrollReveal>
           <div className="mt-10">
             <ImageFrame src={area.image} alt={area.imageAlt} className="aspect-[16/9]" priority />
           </div>
           <div className="mt-10 grid gap-12 lg:grid-cols-12">
-            <div className="space-y-5 text-base leading-relaxed text-muted sm:text-lg lg:col-span-7">
+            <ScrollReveal type="block" stagger={0.1} className="space-y-5 text-base leading-relaxed text-muted sm:text-lg lg:col-span-7">
               {area.paragraphs.map((paragraph) => (
                 <p data-detail="body" key={paragraph}>
                   {paragraph}
                 </p>
               ))}
-            </div>
-            <ol className="space-y-6 lg:col-span-4 lg:col-start-9">
+            </ScrollReveal>
+            <ScrollReveal type="block" stagger={0.08} as="ol" className="space-y-6 lg:col-span-4 lg:col-start-9">
               {area.points.map((point, index) => (
                 <li key={point.title} data-detail="aside">
                   <p className="text-xs tracking-[0.16em] text-bronze">0{index + 1}</p>
@@ -57,7 +60,7 @@ export default function ImpactDetail() {
                   <p className="mt-2 text-sm leading-relaxed text-muted">{point.text}</p>
                 </li>
               ))}
-            </ol>
+            </ScrollReveal>
           </div>
           {area.gallery?.length ? (
             <div className="mt-12">

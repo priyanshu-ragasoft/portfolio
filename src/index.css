@@ -17,11 +17,19 @@
   html {
     scroll-behavior: auto;
     overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
   }
 
   html.is-intro,
   html.is-intro body {
     overflow: hidden;
+  }
+
+  html.is-intro [data-floating-chatbot] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
   body {
@@ -33,6 +41,7 @@
     line-height: 1.65;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
   }
 
@@ -69,8 +78,39 @@
   }
 }
 
+/* ScrollReveal: hide until the hook has split + gsap.set chunks (no FOUC). */
+[data-scroll-reveal]:not([data-reveal-ready]) {
+  opacity: 0;
+}
+
+/* Word/line spans must be inline-block so transform/opacity animate per chunk. */
+.sr-chunk {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-reveal],
+  [data-scroll-reveal] .sr-chunk {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+.value-plaque {
+  clip-path: polygon(
+    1.35rem 0,
+    calc(100% - 1.35rem) 0,
+    100% 1.35rem,
+    100% calc(100% - 1.35rem),
+    calc(100% - 1.35rem) 100%,
+    1.35rem 100%,
+    0 calc(100% - 1.35rem),
+    0 1.35rem
+  );
+}
+
 [data-image-mask] {
-  transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 [data-roadmap-track] {

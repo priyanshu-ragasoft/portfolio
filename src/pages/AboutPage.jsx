@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import AboutPortrait3D from '../components/AboutPortrait3D'
 import PageMeta from '../components/PageMeta'
+import ScrollReveal from '../components/ScrollReveal'
 import { biography, educationNotes, journey, profile, roles } from '../data/profile'
 
 export default function AboutPage() {
@@ -16,9 +17,9 @@ export default function AboutPage() {
           <p data-profile="kicker" className="text-xs font-medium uppercase tracking-[0.22em] text-muted">
             About
           </p>
-          <h1 data-profile="title" className="display mt-4 max-w-4xl text-5xl text-ink sm:text-7xl">
+          <ScrollReveal type="text" as="h1" data-profile="title" className="display mt-4 max-w-4xl text-5xl text-ink sm:text-7xl">
             Who is Gilbert Kevin Jimmy Kwizera?
-          </h1>
+          </ScrollReveal>
           <div className="mt-12 grid items-start gap-12 lg:grid-cols-12">
             <div data-profile="portrait" className="lg:sticky lg:top-28 lg:col-span-5">
               <AboutPortrait3D />
@@ -27,30 +28,30 @@ export default function AboutPage() {
               <p data-profile="role" className="text-sm font-medium text-bronze">
                 {profile.title}
               </p>
-              <div className="mt-6 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
+              <ScrollReveal type="block" stagger={0.1} className="mt-6 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
                 {biography.map((paragraph) => (
                   <p data-profile="bio" key={paragraph}>
                     {paragraph}
                   </p>
                 ))}
-              </div>
+              </ScrollReveal>
             </div>
           </div>
 
-          <div className="mt-20 grid gap-10 border-t border-line pt-12 md:grid-cols-3">
+          <ScrollReveal type="block" stagger={0.1} className="mt-20 grid gap-10 border-t border-line pt-12 md:grid-cols-3">
             {roles.map((role) => (
               <div key={role.title} data-profile="role-card">
                 <h2 className="display text-3xl text-ink">{role.title}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted">{role.text}</p>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
 
           <div className="mt-20 grid gap-10 lg:grid-cols-12">
-            <h2 data-profile="education-title" className="display text-4xl text-ink lg:col-span-4">
+            <ScrollReveal type="text" as="h2" data-profile="education-title" className="display text-4xl text-ink lg:col-span-4">
               Education
-            </h2>
-            <ul className="space-y-5 lg:col-span-7 lg:col-start-6">
+            </ScrollReveal>
+            <ScrollReveal type="block" stagger={0.08} as="ul" className="space-y-5 lg:col-span-7 lg:col-start-6">
               {educationNotes.map((note) => (
                 <li
                   key={note}
@@ -60,14 +61,14 @@ export default function AboutPage() {
                   {note}
                 </li>
               ))}
-            </ul>
+            </ScrollReveal>
           </div>
 
           <div className="mt-20">
-            <h2 data-profile="miles-title" className="display text-4xl text-ink">
+            <ScrollReveal type="text" as="h2" data-profile="miles-title" className="display text-4xl text-ink">
               Milestones
-            </h2>
-            <ol className="mt-8 divide-y divide-line border-y border-line">
+            </ScrollReveal>
+            <ScrollReveal type="block" stagger={0.08} as="ol" className="mt-8 divide-y divide-line border-y border-line">
               {journey.map((item) => (
                 <li key={item.title} data-profile="mile" className="grid gap-3 py-6 md:grid-cols-[180px_1fr]">
                   <p className="text-sm font-medium text-bronze">{item.date}</p>
@@ -77,7 +78,7 @@ export default function AboutPage() {
                   </div>
                 </li>
               ))}
-            </ol>
+            </ScrollReveal>
             <Link
               to="/#journey"
               data-profile="back"

@@ -1,3 +1,5 @@
+import ScrollReveal from './ScrollReveal'
+
 export default function SectionHeading({
   eyebrow,
   title,
@@ -17,18 +19,23 @@ export default function SectionHeading({
           {eyebrow}
         </p>
       ) : null}
-      <Title
+      <ScrollReveal
+        type="text"
+        as={Title}
         className={`display mt-4 text-4xl sm:text-5xl md:text-6xl ${invert ? 'text-paper' : 'text-ink'}`}
       >
         {title}
-      </Title>
+      </ScrollReveal>
       {children ? (
-        <p
+        <ScrollReveal
+          type="text"
+          stagger={0.03}
+          as="p"
           data-lede
           className={`mt-5 max-w-xl text-base leading-relaxed sm:text-lg ${invert ? 'text-mist' : 'text-muted'}`}
         >
           {children}
-        </p>
+        </ScrollReveal>
       ) : null}
     </div>
   )

@@ -1,5 +1,5 @@
-import { gsap } from './gsapConfig'
-import { countUp, enter } from './helpers'
+import { gsap, prefersReducedMotion } from './gsapConfig'
+import { enter } from './helpers'
 import { imageReveal, initParallax } from './imageAnimations'
 
 function media(section) {
@@ -125,7 +125,6 @@ function animateAbout(section, compact) {
   const roles = section.querySelectorAll('[data-stagger-item]')
   const link = section.querySelector('[data-about-link]')
   media(section)
-  enter(visual, { opacity: 0, x: -40 }, { trigger: visual || section, compact, duration: 1 })
   drawRule(kicker?.querySelector('span'), section)
   enter(kicker, { opacity: 0 }, { trigger: kicker || section, compact, duration: 0.5 })
   enter(title, { opacity: 0, x: 36 }, { trigger: title || section, compact, duration: 0.9 })
@@ -160,15 +159,35 @@ function animateImpact(section, compact) {
   revealHeading(section, compact, 'side')
   enter(note, { opacity: 0, y: 24 }, { trigger: note || section, compact })
   enter(figures, { opacity: 0, y: 32 }, { trigger: grid || section, stagger: 0.08, compact })
-  figures.forEach((card) => countUp(card.querySelector('[data-figure]'), { trigger: grid || card }))
   enter(caption, { opacity: 0 }, { trigger: caption || section, duration: 0.6, compact })
   media(section)
   enter(quote?.children, { opacity: 0, x: 40 }, { trigger: quote || section, stagger: 0.1, compact })
   cards?.forEach((card, index) => {
-    enter(card, { opacity: 0, x: index % 2 === 0 ? -36 : 36, y: 16 }, {
-      trigger: card,
-      compact,
-      duration: 0.85,
+    const face = card.querySelector('[data-card-face]')
+    if (!face) return
+    if (compact || prefersReducedMotion()) {
+      enter(face, { opacity: 0 }, { trigger: card, duration: 0.7, ease: 'power2.out' })
+      return
+    }
+    const fromRight = index % 2 === 1
+    gsap.fromTo(face, {
+      opacity: 0.35,
+      y: 72,
+      rotateX: 14,
+      rotateY: fromRight ? 18 : -18,
+      transformPerspective: 1100,
+    }, {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      rotateY: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 95%',
+        end: 'top 42%',
+        scrub: 0.65,
+      },
     })
   })
 }
@@ -178,15 +197,28 @@ function animateProjects(section, compact) {
   media(section)
   section.querySelectorAll('[data-project]').forEach((article) => {
     const visual = article.querySelector('[data-project-media]')
-    const copy = article.querySelectorAll('[data-project-copy] > *')
+    const copy = article.querySelector('[data-project-copy]')
     const fromRight = visual?.dataset.from === 'right'
     article.dataset.revealed = 'true'
-    enter(visual, { opacity: 0, x: fromRight ? 48 : -48 }, { trigger: article, compact, duration: 1 })
-    enter(copy, { opacity: 0, x: fromRight ? -32 : 32 }, {
-      trigger: article,
-      stagger: 0.08,
-      compact,
-      duration: 0.8,
+    if (!visual) return
+
+    if (compact || prefersReducedMotion()) {
+      enter(visual, { opacity: 0 }, { trigger: article, duration: 0.7, ease: 'power2.out' })
+      enter(copy, { opacity: 0 }, { trigger: article, duration: 0.7, ease: 'power2.out' })
+      return
+    }
+
+    if (!copy) return
+    gsap.fromTo(copy, { x: fromRight ? -64 : 64, opacity: 0.35 }, {
+      x: 0,
+      opacity: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: article,
+        start: 'top 90%',
+        end: 'top 50%',
+        scrub: 0.7,
+      },
     })
   })
 }
@@ -244,7 +276,7 @@ function animateEducation(section, compact) {
   })
   enter(paragraphs, { opacity: 0, y: 20 }, { trigger: paragraphs[0] || section, stagger: 0.12, compact })
   enter(link, { opacity: 0, y: 12 }, { trigger: link || section, compact, duration: 0.55 })
-  enter(visual, { opacity: 0, x: 48 }, { trigger: visual || section, compact, duration: 1 })
+  enter(visual, { opacity: 0 }, { trigger: visual || section, compact, duration: 1 })
   media(section)
 }
 
@@ -266,11 +298,9 @@ function animateInsights(section, compact) {
 }
 
 function animatePhilosophy(section, compact) {
-  const plate = section.querySelector('[data-philosophy-plate]')
   const kicker = section.querySelector('[data-philosophy-kicker]')
   const line = section.querySelector('[data-philosophy-line]')
   const note = section.querySelector('[data-philosophy-note]')
-  openClip(plate, section, compact, compact ? 'inset(6% 6% 6% 6%)' : 'inset(12% 8% 12% 8%)')
   initParallax(section)
   enter(kicker, { opacity: 0, y: 12 }, { trigger: section, compact, duration: 0.5 })
   enter(line, { yPercent: 115 }, { trigger: line || section, duration: 1.15, ease: 'power4.out', compact })
@@ -383,9 +413,7 @@ function animateMissing(section, compact) {
 
 function animateFooter(footer, compact) {
   const cols = footer.querySelectorAll('[data-footer-col]')
-  const base = footer.querySelector('[data-footer-base]')
   enter(cols, { opacity: 0, y: compact ? 20 : 32 }, { trigger: footer, stagger: 0.1, compact, duration: 0.85 })
-  enter(base, { opacity: 0 }, { trigger: base || footer, compact, duration: 0.6 })
 }
 
 const scenes = {

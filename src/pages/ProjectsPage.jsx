@@ -1,5 +1,6 @@
 import PageMeta from '../components/PageMeta'
 import Container from '../components/Container'
+import ScrollReveal from '../components/ScrollReveal'
 import Projects from '../sections/Projects'
 
 export default function ProjectsPage() {
@@ -14,12 +15,14 @@ export default function ProjectsPage() {
           <p data-listing-kicker className="text-xs font-medium uppercase tracking-[0.22em] text-muted">
             Projects
           </p>
-          <h1 data-listing-title className="display mt-4 max-w-3xl text-5xl text-ink sm:text-7xl">
+          <ScrollReveal type="text" as="h1" data-listing-title className="display mt-4 max-w-3xl text-5xl text-ink sm:text-7xl">
             Projects That Impact Lives
-          </h1>
-          <p data-listing-lede className="mt-5 max-w-xl text-base leading-relaxed text-muted">
-            The project records published on his site. Nothing here is added beyond that record.
-          </p>
+          </ScrollReveal>
+          <ScrollReveal type="block" data-listing-lede className="mt-5 max-w-xl">
+            <p className="text-base leading-relaxed text-muted">
+              The project records published on his site. Nothing here is added beyond that record.
+            </p>
+          </ScrollReveal>
         </Container>
       </div>
       <Projects showHeading={false} />

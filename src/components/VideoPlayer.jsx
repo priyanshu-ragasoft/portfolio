@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw, X } from 'lucide-react'
 
 function formatTime(seconds) {
   if (isNaN(seconds)) return '0:00'
@@ -8,7 +8,7 @@ function formatTime(seconds) {
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`
 }
 
-export default function VideoPlayer({ src, poster, title, className = '' }) {
+export default function VideoPlayer({ src, poster, title, className = '', onClose }) {
   const videoRef = useRef(null)
   const containerRef = useRef(null)
 
@@ -116,12 +116,12 @@ export default function VideoPlayer({ src, poster, title, className = '' }) {
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onClick={togglePlay}
-        className="h-full w-full object-cover cursor-pointer"
+        className="relative z-0 h-full w-full cursor-pointer object-cover"
         aria-label={title || 'Documentary film'}
       />
 
       {/* Top Floating Badge */}
-      <div className="pointer-events-none absolute top-3 left-3 sm:top-4 sm:left-4 z-20 flex items-center gap-2 rounded-full border border-white/20 bg-black/65 px-3 py-1 backdrop-blur-md">
+      <div className="pointer-events-none absolute top-3 left-3 z-30 flex items-center gap-2 rounded-full border border-white/20 bg-black/65 px-3 py-1 backdrop-blur-md sm:top-4 sm:left-4">
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-red-600" />
@@ -131,12 +131,22 @@ export default function VideoPlayer({ src, poster, title, className = '' }) {
         </span>
       </div>
 
-      {/* Sound Indicator Badge (Clickable to quickly unmute) */}
+      {onClose ? (
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-3 right-3 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-white/50 bg-black text-white shadow-lg sm:top-4 sm:right-4"
+          aria-label="Close"
+        >
+          <X className="h-5 w-5" strokeWidth={2.5} />
+        </button>
+      ) : null}
+
       {isMuted && (
         <button
           type="button"
           onClick={toggleMute}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex items-center gap-1.5 rounded-full border border-white/25 bg-black/70 px-3 py-1 text-xs text-white backdrop-blur-md transition-all hover:bg-black/90 hover:scale-105"
+          className={`absolute top-3 z-30 flex items-center gap-1.5 rounded-full border border-white/25 bg-black/70 px-3 py-1 text-xs text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-black/90 sm:top-4 ${onClose ? 'right-16 sm:right-[4.5rem]' : 'right-3 sm:right-4'}`}
         >
           <VolumeX className="h-3.5 w-3.5 text-bronze" />
           <span className="font-sans text-[0.68rem] tracking-wide">Tap to Unmute</span>
@@ -148,7 +158,7 @@ export default function VideoPlayer({ src, poster, title, className = '' }) {
         <button
           type="button"
           onClick={togglePlay}
-          className="absolute inset-0 z-10 flex items-center justify-center bg-black/35 backdrop-blur-[2px] transition-all"
+          className="absolute inset-0 z-20 flex items-center justify-center bg-black/35 backdrop-blur-[2px] transition-all"
           aria-label="Play video"
         >
           <div className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full border-2 border-white/80 bg-black/60 text-white shadow-2xl transition-transform hover:scale-110">
@@ -159,7 +169,7 @@ export default function VideoPlayer({ src, poster, title, className = '' }) {
 
       {/* Video Control Bar */}
       <div
-        className={`absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 sm:p-5 transition-opacity duration-300 ${
+        className={`absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 transition-opacity duration-300 sm:p-5 ${
           showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
         }`}
       >

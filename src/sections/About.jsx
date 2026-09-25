@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import Container from '../components/Container'
 import AboutPortrait3D from '../components/AboutPortrait3D'
+import ScrollReveal from '../components/ScrollReveal'
 import { profile, roles } from '../data/profile'
 
 export default function About() {
@@ -16,23 +17,25 @@ export default function About() {
             <span className="h-px w-8 bg-bronze" aria-hidden="true" />
             About
           </p>
-          <h2 className="display mt-4 text-4xl text-ink sm:text-5xl md:text-6xl">
+          <ScrollReveal type="text" as="h2" className="display mt-4 text-4xl text-ink sm:text-5xl md:text-6xl">
             Who is Gilbert Kevin Jimmy Kwizera?
-          </h2>
-          <p data-about-body className="mt-6 text-base leading-relaxed text-muted sm:text-lg">
-            A humanitarian leader, international consultant, and volunteer. Born in Kampala on 30
-            November 1971, trained in information systems and finance, and now based in the United
-            Arab Emirates. The public measure of the work is simple: whether it protects dignity
-            and can be sustained.
-          </p>
-          <ul className="mt-8 divide-y divide-line border-y border-line" data-stagger>
+          </ScrollReveal>
+          <ScrollReveal type="block">
+            <p data-about-body className="mt-6 text-base leading-relaxed text-muted sm:text-lg">
+              A humanitarian leader, international consultant, and volunteer. Born in Kampala on 30
+              November 1971, trained in information systems and finance, and now based in the United
+              Arab Emirates. The public measure of the work is simple: whether it protects dignity
+              and can be sustained.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal type="block" stagger={0.1} as="ul" className="mt-8 divide-y divide-line border-y border-line" data-stagger>
             {roles.map((role) => (
               <li key={role.title} data-stagger-item className="grid gap-2 py-4 sm:grid-cols-[180px_1fr] sm:gap-6">
                 <p className="text-sm font-medium text-ink">{role.title}</p>
                 <p className="text-sm leading-relaxed text-muted">{role.text}</p>
               </li>
             ))}
-          </ul>
+          </ScrollReveal>
           <Link
             to="/about"
             data-about-link

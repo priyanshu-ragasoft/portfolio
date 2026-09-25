@@ -1,3 +1,4 @@
+import ScrollReveal from '../components/ScrollReveal'
 import { profile, philosophy } from '../data/profile'
 
 export default function Philosophy() {
@@ -8,7 +9,7 @@ export default function Philosophy() {
       data-parallax-bounds
     >
       <div data-philosophy-plate className="absolute inset-0">
-        <div data-parallax className="absolute inset-x-0 -top-[3%] h-[106%]">
+        <div data-parallax className="absolute inset-x-0 -top-[14%] h-[128%]">
           <img
             src={profile.office || profile.portrait}
             alt=""
@@ -22,13 +23,14 @@ export default function Philosophy() {
         <p data-philosophy-kicker className="text-xs font-medium uppercase tracking-[0.22em] text-mist">
           A thematic statement
         </p>
-        <p className="display mt-6 max-w-4xl text-4xl sm:text-6xl md:text-7xl">
-          <span className="block overflow-hidden pb-2">
-            <span data-philosophy-line className="block">
-              {philosophy.statement}
-            </span>
-          </span>
-        </p>
+        <ScrollReveal
+          type="text"
+          as="p"
+          data-philosophy-line
+          className="display mt-6 max-w-4xl text-4xl sm:text-6xl md:text-7xl"
+        >
+          {philosophy.statement}
+        </ScrollReveal>
         <p data-philosophy-note className="mt-6 max-w-lg text-sm leading-relaxed text-mist">
           {philosophy.note}
         </p>

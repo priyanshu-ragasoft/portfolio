@@ -65,6 +65,7 @@ export const projects = [
     category: 'Humanitarian initiative',
     date: '2026',
     image: employmentInitiative,
+    imageFit: 'contain',
     imageAlt: 'Gilbert Kevin Jimmy Kwizera Humanitarian Initiative Supporting Africa Through Employment Awareness',
     summary:
       'A pan-African initiative providing verified employment information, free job updates, and community welfare guidance without charging recruitment fees.',

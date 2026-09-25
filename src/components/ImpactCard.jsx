@@ -1,90 +1,104 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { ArrowUpRight, Sparkles, CheckCircle2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { gsap, prefersReducedMotion } from '../animations/gsapConfig'
 import ImageFrame from './ImageFrame'
 
+function canTilt() {
+  return (
+    !prefersReducedMotion() &&
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  )
+}
+
 export default function ImpactCard({ area, featured = false }) {
-  const cardRef = useRef(null)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
+  const faceRef = useRef(null)
+  const edgeRef = useRef(null)
 
-  const handleMouseMove = (e) => {
-    const card = cardRef.current
-    if (!card) return
-    const rect = card.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    setMousePos({ x, y })
+  const handleMouseMove = (event) => {
+    const face = faceRef.current
+    if (!face || !canTilt()) return
 
-    // 3D Tilt calculation
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-    if (!fine) return
+    const rect = face.getBoundingClientRect()
+    const px = (event.clientX - rect.left) / rect.width - 0.5
+    const py = (event.clientY - rect.top) / rect.height - 0.5
 
-    const px = (x / rect.width - 0.5) * 2
-    const py = (y / rect.height - 0.5) * 2
-    card.style.transform = `perspective(1000px) rotateY(${px * 5}deg) rotateX(${-py * 4.5}deg) translateY(-8px)`
-  }
+    gsap.to(face, {
+      rotateY: px * 12,
+      rotateX: py * -8,
+      y: -6,
+      duration: 0.45,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    })
 
-  const handleMouseEnter = () => {
-    setIsHovered(true)
+    const edge = edgeRef.current
+    if (!edge) return
+    const angle = Math.atan2(py, px) * (180 / Math.PI) + 90
+    edge.style.opacity = '1'
+    edge.style.background = `linear-gradient(${angle}deg, transparent 55%, rgba(141, 112, 67, 0.55))`
   }
 
   const handleMouseLeave = () => {
-    setIsHovered(false)
-    const card = cardRef.current
-    if (card) {
-      card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0px)'
-    }
+    const face = faceRef.current
+    if (edgeRef.current) edgeRef.current.style.opacity = '0'
+    if (!face || !canTilt()) return
+    gsap.to(face, {
+      rotateX: 0,
+      rotateY: 0,
+      y: 0,
+      duration: 0.6,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    })
   }
 
   return (
     <article
-      ref={cardRef}
       data-lift
+      data-card-3d
       data-cursor="view"
       onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-[#e3dbd1] bg-gradient-to-b from-[#faf8f4] to-[#f4efe8] p-2.5 sm:p-3.5 transition-all duration-500 ease-out hover:border-[#C9A15A]/80 hover:shadow-[0_24px_60px_-12px_rgba(141,112,67,0.22),0_12px_24px_-8px_rgba(20,19,17,0.12)] ${
-        featured ? 'lg:min-h-[36rem]' : ''
-      }`}
-      style={{
-        transformStyle: 'preserve-3d',
-        transition: 'transform 0.25s ease-out, border-color 0.4s ease, box-shadow 0.4s ease',
-      }}
+      className={`group h-full ${featured ? 'lg:min-h-[36rem]' : ''}`}
+      style={{ perspective: '1200px' }}
     >
-      {/* 1. Dynamic Cursor Spotlight (Gold ambient light tracking mouse) */}
       <div
-        className="pointer-events-none absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(550px circle at ${mousePos.x}px ${mousePos.y}px, rgba(201, 161, 90, 0.14), transparent 70%)`,
-        }}
-        aria-hidden="true"
-      />
+        ref={faceRef}
+        data-card-face
+        className="relative flex h-full min-h-full flex-col rounded-2xl border border-line bg-gradient-to-b from-[#faf8f4] to-[#f4efe8] p-2.5 transition-[border-color,box-shadow] duration-500 ease-out hover:border-bronze/40 hover:shadow-[0_22px_36px_-28px_rgba(20,19,17,0.55),0_14px_24px_-20px_rgba(141,112,67,0.28)] sm:rounded-3xl sm:p-3.5"
+        style={{ transformStyle: 'preserve-3d' }}
+      >
+        <div
+          ref={edgeRef}
+          className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 sm:rounded-3xl"
+          style={{
+            padding: '1px',
+            WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+            WebkitMaskComposite: 'xor',
+            mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+            maskComposite: 'exclude',
+          }}
+          aria-hidden="true"
+        />
 
-      {/* 2. Top Animated Luminous Gold Laser Beam */}
       <div
-        className="pointer-events-none absolute top-0 inset-x-8 h-[2px] scale-x-0 bg-gradient-to-r from-transparent via-[#C9A15A] to-transparent transition-transform duration-700 ease-out group-hover:scale-x-100"
-        aria-hidden="true"
-      />
-
-      {/* 3. Media Header with Interactive Overlays */}
-      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
+        className="relative overflow-hidden rounded-xl sm:rounded-2xl"
+        style={{ transform: 'translateZ(12px)' }}
+      >
         <ImageFrame
           src={area.image}
           alt={area.imageAlt}
-          className={`${featured ? 'aspect-[16/10] lg:aspect-[16/11]' : 'aspect-[16/10]'} w-full object-cover transition-transform duration-700 group-hover:scale-105`}
-        />
-
-        {/* Diagonal Light Sweep Effect on Hover */}
-        <div
-          className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 transition-transform duration-1000 ease-in-out group-hover:translate-x-[200%]"
-          aria-hidden="true"
+          fit={area.imageFit || 'cover'}
+          trim={area.imageTrim}
+          parallax={area.imageFit !== 'contain'}
+          position={area.imageFit === 'contain' ? 'center' : undefined}
+          className={`${area.imageFit === 'contain' ? 'bg-transparent' : featured ? 'aspect-[16/10] lg:aspect-[16/11]' : 'aspect-[16/10]'} w-full`}
         />
 
         {/* Dark Vignette Overlay for Crisp Contrast */}
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/35"
+          className={`pointer-events-none absolute inset-0 ${area.imageFit === 'contain' ? 'bg-gradient-to-t from-black/25 via-transparent to-black/10' : 'bg-gradient-to-t from-black/75 via-black/20 to-black/35'}`}
           aria-hidden="true"
         />
 
@@ -107,15 +121,7 @@ export default function ImpactCard({ area, featured = false }) {
         </div>
 
         {/* Bottom Banner Tag on Image */}
-        <div className="absolute bottom-2.5 inset-x-2.5 sm:bottom-3 sm:inset-x-3 z-10 flex items-center justify-between rounded-lg border border-white/15 bg-black/45 px-3 py-1.5 backdrop-blur-md">
-          <span className="font-sans text-[0.62rem] sm:text-[0.7rem] font-medium tracking-wide text-white/90 truncate">
-            {area.title}
-          </span>
-          <span className="flex items-center gap-1 text-[0.58rem] sm:text-[0.65rem] font-semibold tracking-widest text-[#C9A15A] uppercase shrink-0">
-            <Sparkles className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
-            Impact
-          </span>
-        </div>
+       
       </div>
 
       {/* 4. Card Content Body */}
@@ -129,7 +135,7 @@ export default function ImpactCard({ area, featured = false }) {
         </div>
 
         {/* Title */}
-        <h3 className="display mt-2 text-2xl font-normal text-ink transition-colors duration-300 sm:text-3xl lg:text-[2.2rem] group-hover:text-[#8d7043]">
+        <h3 className="display mt-2 text-2xl font-normal text-[#141311] transition-colors duration-300 sm:text-3xl lg:text-[2.2rem] group-hover:text-[#8d7043]">
           {area.title}
         </h3>
 
@@ -140,7 +146,7 @@ export default function ImpactCard({ area, featured = false }) {
         </div>
 
         {/* Summary Description */}
-        <p className="mt-3.5 flex-1 text-sm leading-relaxed text-muted sm:text-base">
+        <p className="mt-3.5 flex-1 text-sm leading-relaxed text-[#4e4943] sm:text-base">
           {area.summary}
         </p>
 
@@ -153,7 +159,7 @@ export default function ImpactCard({ area, featured = false }) {
                 className="flex items-center gap-2 rounded-lg bg-white/40 px-2.5 py-1.5 border border-line/40 transition-colors group-hover:bg-white/70"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[#C9A15A] shrink-0" />
-                <span className="text-xs font-medium text-ink truncate">{point.title}</span>
+                <span className="text-xs font-medium text-[#141311] truncate">{point.title}</span>
               </div>
             ))}
           </div>
@@ -163,16 +169,17 @@ export default function ImpactCard({ area, featured = false }) {
         <div className="mt-6 pt-2">
           <Link
             to={`/impact/${area.slug}`}
-            className="group/btn relative inline-flex w-full items-center justify-between rounded-full border border-ink/20 bg-ink px-5 py-3 text-xs sm:text-sm font-semibold tracking-wider text-paper uppercase transition-all duration-300 hover:border-[#8d7043] hover:bg-[#8d7043] hover:shadow-[0_8px_24px_rgba(141,112,67,0.35)]"
+            className="group/btn relative inline-flex w-full items-center justify-between rounded-full border border-bronze/40 bg-bronze px-5 py-3 text-xs font-semibold tracking-wider text-void uppercase transition-all duration-300 hover:bg-cream sm:text-sm"
           >
             <span className="relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1">
               Explore Initiative
             </span>
-            <div className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 group-hover/btn:bg-white group-hover/btn:text-ink group-hover/btn:rotate-45">
+            <div className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 group-hover/btn:bg-white group-hover/btn:text-[#141311] group-hover/btn:rotate-45">
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" aria-hidden="true" />
             </div>
           </Link>
         </div>
+      </div>
       </div>
     </article>
   )

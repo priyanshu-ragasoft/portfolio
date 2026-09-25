@@ -18,12 +18,13 @@ export function imageReveal(frames) {
       timeline.fromTo(
         mask,
         { yPercent: 0, autoAlpha: 1 },
-        { yPercent: -100, duration: 1.05, ease: 'power4.inOut', immediateRender: false },
+        { yPercent: 100, duration: 1.05, ease: 'power4.inOut', immediateRender: false },
         0,
       )
     }
 
-    if (image) {
+    const contain = image?.classList.contains('object-contain')
+    if (image && !contain) {
       timeline.fromTo(
         image,
         { scale: 1.12 },

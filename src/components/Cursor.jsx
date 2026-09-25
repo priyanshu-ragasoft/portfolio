@@ -94,14 +94,7 @@ export default function Cursor() {
       {/* Ring */}
       <div className="h-4 w-4 rounded-full border border-bronze" />
       {/* VIEW label — appears on project/card hover */}
-      <span
-        ref={labelRef}
-        className="absolute text-[0.48rem] font-semibold tracking-[0.22em] text-bronze uppercase"
-        style={{ opacity: 0, scale: 0.5 }}
-        aria-hidden="true"
-      >
-        VIEW
-      </span>
+     
     </div>
   )
 }

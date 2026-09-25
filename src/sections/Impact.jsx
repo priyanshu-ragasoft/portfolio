@@ -1,9 +1,30 @@
+import { useLayoutEffect, useRef } from 'react'
+import { countUp } from '../animations/helpers'
 import Container from '../components/Container'
 import ImageFrame from '../components/ImageFrame'
 import ImpactCard from '../components/ImpactCard'
+import ScrollReveal from '../components/ScrollReveal'
 import SectionHeading from '../components/SectionHeading'
 import { figures, profile } from '../data/profile'
 import { impactAreas } from '../data/impact'
+
+function FigureValue({ value }) {
+  const ref = useRef(null)
+
+  useLayoutEffect(() => {
+    const tween = countUp(ref.current, { duration: 2.2 })
+    return () => {
+      tween?.scrollTrigger?.kill()
+      tween?.kill()
+    }
+  }, [value])
+
+  return (
+    <p ref={ref} data-figure data-sr-ignore className="display text-4xl text-ink sm:text-5xl">
+      {value}
+    </p>
+  )
+}
 
 export default function Impact() {
   return (
@@ -17,21 +38,23 @@ export default function Impact() {
               move: from sympathy to structures that help in the background.
             </SectionHeading>
           </div>
-          <p data-impact-note className="text-base leading-relaxed text-muted lg:col-span-4 lg:col-start-9">
-            Where sickness, poverty, and displacement meet, small failures become overwhelming. The
-            response described here is patience and organisation — showing up, spending resources
-            carefully, and refusing choices that cost a person their dignity.
-          </p>
+          <ScrollReveal type="block" className="lg:col-span-4 lg:col-start-9">
+            <p data-impact-note className="text-base leading-relaxed text-muted">
+              Where sickness, poverty, and displacement meet, small failures become overwhelming. The
+              response described here is patience and organisation — showing up, spending resources
+              carefully, and refusing choices that cost a person their dignity.
+            </p>
+          </ScrollReveal>
         </div>
 
-        <div data-impact-figures className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ScrollReveal type="block" stagger={0.08} data-impact-figures className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {figures.map((figure) => (
             <div key={figure.label} data-figure-card className="border-t border-line pt-5">
-              <p data-figure className="display text-4xl text-ink sm:text-5xl">{figure.value}</p>
+              <FigureValue value={figure.value} />
               <p className="mt-2 text-sm text-muted">{figure.label}</p>
             </div>
           ))}
-        </div>
+        </ScrollReveal>
         <p data-impact-caption className="mt-4 text-xs tracking-wide text-muted">
           Figures as published alongside his foundations&apos; work.
         </p>
@@ -44,7 +67,7 @@ export default function Impact() {
               className="aspect-[16/10]"
             />
           </div>
-          <div data-impact-quote className="lg:col-span-5">
+          <ScrollReveal type="block" stagger={0.1} data-impact-quote className="lg:col-span-5">
             <p className="display text-3xl text-ink sm:text-4xl">
               Consistency, not the dramatic moment, is what the work asks for.
             </p>
@@ -53,7 +76,7 @@ export default function Impact() {
               the decision to build support that operates when no one is watching, for people at
               their most vulnerable.
             </p>
-          </div>
+          </ScrollReveal>
         </div>
 
         <div data-impact-grid className="mt-20 grid gap-5 lg:grid-cols-2">

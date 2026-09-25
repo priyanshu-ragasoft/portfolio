@@ -9,8 +9,12 @@ export function shift(value, compact) {
   return Math.sign(value) * Math.min(24, Math.abs(value))
 }
 
+function claimedByScrollReveal(node) {
+  return Boolean(node?.closest?.('[data-scroll-reveal]'))
+}
+
 export function enter(targets, from, options = {}) {
-  const list = gsap.utils.toArray(targets).filter(Boolean)
+  const list = gsap.utils.toArray(targets).filter((node) => node && !claimedByScrollReveal(node))
   if (!list.length) return null
 
   const compact = Boolean(options.compact)
@@ -80,15 +84,16 @@ export function countUp(node, options = {}) {
 
   render(0)
   const state = { value: 0 }
-  gsap.to(state, {
+  return gsap.to(state, {
     value: target,
-    duration: options.duration ?? 1.4,
+    duration: options.duration ?? 2.2,
     ease: 'power2.out',
     scrollTrigger: {
       trigger: options.trigger || node,
-      start: 'top 85%',
-      toggleActions: 'play none none none',
+      start: 'top 88%',
+      toggleActions: 'restart none none reset',
     },
+    onStart: () => render(0),
     onUpdate: () => render(state.value),
     onComplete: () => {
       node.textContent = raw

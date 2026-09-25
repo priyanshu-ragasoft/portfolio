@@ -35,23 +35,26 @@ function _init() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {}
 
   // Skip on pure-touch devices — native momentum feels better
-  if (window.matchMedia('(pointer: coarse) and (hover: none)').matches) return () => {}
-
   lenis = new Lenis({
-    lerp: 0.1,
-    wheelMultiplier: 1,
-    touchMultiplier: 1.6,
-    syncTouch: false,
+    lerp: 0.08,
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    smoothTouch: false,
+    wheelMultiplier: 0.95,
+    touchMultiplier: 1.8,
     infinite: false,
   })
 
   // Use a named ticker callback so we can remove it precisely later
   function onTick(time) {
-    lenis.raf(time * 1000)
+    lenis?.raf(time * 1000)
   }
 
   gsap.ticker.add(onTick)
-  gsap.ticker.lagSmoothing(0)
+  gsap.ticker.lagSmoothing(500, 33)
 
   // Let ScrollTrigger know when the scroll position changed
   lenis.on('scroll', ScrollTrigger.update)
@@ -62,7 +65,7 @@ function _init() {
 
   return () => {
     gsap.ticker.remove(onTick)
-    lenis.destroy()
+    lenis?.destroy()
     lenis = null
   }
 }

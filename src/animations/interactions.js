@@ -21,7 +21,7 @@ export function initInteractions(root) {
     if (!fine) return
 
     const card = event.target.closest?.('[data-lift]')
-    if (card && root.contains(card) && !card.contains(event.relatedTarget) && card.dataset.revealed !== 'false') {
+    if (card && !card.hasAttribute('data-card-3d') && root.contains(card) && !card.contains(event.relatedTarget) && card.dataset.revealed !== 'false') {
       gsap.to(card, { y: lift, duration: 0.35, ease: 'power2.out', overwrite: 'auto' })
     }
 
@@ -34,7 +34,7 @@ export function initInteractions(root) {
 
   const onOut = (event) => {
     const card = event.target.closest?.('[data-lift]')
-    if (card && root.contains(card) && !card.contains(event.relatedTarget)) {
+    if (card && !card.hasAttribute('data-card-3d') && root.contains(card) && !card.contains(event.relatedTarget)) {
       if (card.dataset.revealed !== 'false') {
         gsap.to(card, { y: 0, duration: 0.45, ease: 'power2.out', overwrite: 'auto' })
       }

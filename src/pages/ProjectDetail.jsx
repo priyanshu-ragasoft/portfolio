@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import ImageFrame from '../components/ImageFrame'
 import PageMeta from '../components/PageMeta'
+import ScrollReveal from '../components/ScrollReveal'
 import { projects } from '../data/projects'
 
 export default function ProjectDetail() {
@@ -31,27 +32,35 @@ export default function ProjectDetail() {
             <span className="mx-2 text-bronze">/</span>
             {project.date}
           </p>
-          <h1 data-detail="title" className="display mt-4 max-w-4xl text-5xl text-ink sm:text-7xl">
+          <ScrollReveal type="text" as="h1" data-detail="title" className="display mt-4 max-w-4xl text-5xl text-ink sm:text-7xl">
             {project.title}
-          </h1>
+          </ScrollReveal>
           <div className="mt-10">
-            <ImageFrame src={project.image} alt={project.imageAlt} className="aspect-[16/9]" priority />
+            <ImageFrame
+              src={project.image}
+              alt={project.imageAlt}
+              fit={project.imageFit || 'cover'}
+              parallax={project.imageFit !== 'contain'}
+              position={project.imageFit === 'contain' ? 'center' : undefined}
+              className={project.imageFit === 'contain' ? 'aspect-[3/2]' : 'aspect-[16/9]'}
+              priority
+            />
           </div>
           <div className="mt-10 grid gap-10 lg:grid-cols-12">
-            <div className="space-y-5 text-base leading-relaxed text-muted sm:text-lg lg:col-span-7">
+            <ScrollReveal type="block" stagger={0.1} className="space-y-5 text-base leading-relaxed text-muted sm:text-lg lg:col-span-7">
               {project.paragraphs.map((paragraph) => (
                 <p data-detail="body" key={paragraph}>
                   {paragraph}
                 </p>
               ))}
-            </div>
-            <ul className="h-fit border border-line bg-ivory p-6 lg:col-span-4 lg:col-start-9">
+            </ScrollReveal>
+            <ScrollReveal type="block" stagger={0.06} as="ul" className="h-fit border border-line bg-ivory p-6 lg:col-span-4 lg:col-start-9">
               {project.tags.map((tag) => (
                 <li data-detail="aside" key={tag} className="border-b border-line py-3 text-sm last:border-b-0">
                   {tag}
                 </li>
               ))}
-            </ul>
+            </ScrollReveal>
           </div>
           {project.gallery?.length ? (
             <div className="mt-12 grid gap-5 md:grid-cols-2">

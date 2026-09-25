@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import Container from '../components/Container'
 import ImageFrame from '../components/ImageFrame'
+import ScrollReveal from '../components/ScrollReveal'
 import { profile } from '../data/profile'
 
 export default function Education() {
@@ -13,8 +14,10 @@ export default function Education() {
             <span className="h-px w-8 bg-bronze" aria-hidden="true" />
             Knowledge
           </p>
-          <h2 className="display mt-4 text-4xl text-ink sm:text-6xl">Education as a Tool for Service</h2>
-          <div data-edu-copy className="mt-6 space-y-4 text-base leading-relaxed text-muted">
+          <ScrollReveal type="text" as="h2" className="display mt-4 text-4xl text-ink sm:text-6xl">
+            Education as a Tool for Service
+          </ScrollReveal>
+          <ScrollReveal type="block" stagger={0.1} data-edu-copy className="mt-6 space-y-4 text-base leading-relaxed text-muted">
             <p>
               In his published writing, learning was never framed as a private advantage. Business,
               information technology, and finance were how he learned to see institutions: where
@@ -29,7 +32,7 @@ export default function Education() {
               The same conviction shows up in direct gifts: books and tools in a classroom, so a
               child’s day is not stopped by the absence of something basic.
             </p>
-          </div>
+          </ScrollReveal>
           <Link
             to="/impact/isbet-brainery"
             data-edu-link

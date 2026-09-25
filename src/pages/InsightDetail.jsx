@@ -1,12 +1,14 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import ImageFrame from '../components/ImageFrame'
 import VideoPlayer from '../components/VideoPlayer'
 import PageMeta from '../components/PageMeta'
+import ScrollReveal from '../components/ScrollReveal'
 import { posts } from '../data/blog'
 
 export default function InsightDetail() {
   const { slug } = useParams()
+  const navigate = useNavigate()
   const post = posts.find((item) => item.slug === slug)
 
   if (!post) {
@@ -32,28 +34,29 @@ export default function InsightDetail() {
             <span className="mx-2 text-bronze">/</span>
             {post.category}
           </p>
-          <h1 data-detail="title" className="display mt-4 text-4xl text-ink sm:text-6xl">
+          <ScrollReveal type="text" as="h1" data-detail="title" className="display mt-4 text-4xl text-ink sm:text-6xl">
             {post.title}
-          </h1>
+          </ScrollReveal>
           <div className="mt-8">
             {post.videoFile ? (
               <VideoPlayer
                 src={post.videoFile}
                 poster={post.image}
                 title={post.title}
+                onClose={() => navigate('/insights')}
                 className="aspect-[16/10] sm:aspect-video w-full"
               />
             ) : (
               <ImageFrame src={post.image} alt={post.imageAlt} className="aspect-[16/10]" priority />
             )}
           </div>
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
+          <ScrollReveal type="block" stagger={0.1} className="mt-8 space-y-5 text-base leading-relaxed text-muted sm:text-lg">
             {post.paragraphs.map((paragraph) => (
               <p data-detail="body" key={paragraph}>
                 {paragraph}
               </p>
             ))}
-          </div>
+          </ScrollReveal>
           {post.video ? (
             <p data-detail="extra" className="mt-8">
               <a
