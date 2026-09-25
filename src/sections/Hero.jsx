@@ -66,7 +66,7 @@ export default function Hero() {
 
         <div
           data-hero-parallax="mid"
-          className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1180px] flex-col justify-end px-5 pt-28 pb-16 will-change-transform sm:px-8 sm:pb-20"
+          className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1180px] flex-col justify-end px-5 pt-24 pb-10 will-change-transform sm:px-8 sm:pt-28 sm:pb-12 lg:pb-14"
         >
           <p
             data-hero-kicker
@@ -75,10 +75,10 @@ export default function Hero() {
             HUMANITARIAN • CONSULTANT • SOCIAL IMPACT
           </p>
 
-          <div data-hero-heading className="relative mt-5 max-w-4xl">
-            <h1 className="display text-[clamp(2.55rem,11vw,7.4rem)] leading-[1.08] text-paper">
+          <div data-hero-heading className="relative mt-3.5 max-w-4xl sm:mt-5">
+            <h1 className="display text-[clamp(2.4rem,6.8vw,5.6rem)] leading-[1.06] text-paper">
               {lines.map((line) => (
-                <span key={line} className="block overflow-hidden pb-[0.14em]">
+                <span key={line} className="block overflow-hidden pb-[0.12em]">
                   <span data-hero-line className="block">
                     {line}
                   </span>
@@ -99,7 +99,7 @@ export default function Hero() {
                     compact={compact}
                     cols={compact ? 4 : 8}
                     rows={compact ? 2 : 3}
-                    className="display text-[clamp(2.55rem,11vw,7.4rem)] text-paper"
+                    className="display text-[clamp(2.4rem,6.8vw,5.6rem)] text-paper"
                   />
                 ))}
               </div>
@@ -109,28 +109,31 @@ export default function Hero() {
           <p
             data-hero-parallax="light"
             data-hero-copy
-            className="mt-6 max-w-xl text-base leading-relaxed text-paper/80 will-change-transform sm:text-lg"
+            className="mt-4 max-w-xl text-sm leading-relaxed text-paper/80 will-change-transform sm:mt-5 sm:text-base lg:text-lg"
           >
             Gilbert Kevin Jimmy Kwizera builds practical support for people at their most vulnerable —
             in cancer care, recovery, education, and the quiet work of protecting dignity.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <span data-hero-action className="pointer-events-auto">
+
+          {/* Action Buttons (Always visible and interactive on desktop & mobile) */}
+          <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:items-center">
+            <span data-hero-action className="pointer-events-auto z-30">
               <Button to="/#journey" variant="light">
                 Explore My Journey
               </Button>
             </span>
-            <span data-hero-action className="pointer-events-auto">
+            <span data-hero-action className="pointer-events-auto z-30">
               <Button to="/contact" variant="ghost" className="text-paper hover:bg-paper hover:text-ink">
                 Let&apos;s Connect
               </Button>
             </span>
           </div>
+
           <div
             data-hero-indicator
-            className="mt-14 flex items-center gap-3 text-xs tracking-[0.2em] text-paper/70"
+            className="mt-8 flex items-center gap-3 text-xs tracking-[0.2em] text-paper/70 sm:mt-10"
           >
-            <span className="relative block h-12 w-px bg-paper/25" aria-hidden="true">
+            <span className="relative block h-10 w-px bg-paper/25" aria-hidden="true">
               <span
                 data-hero-progress
                 className="absolute inset-0 origin-top bg-paper/80"
@@ -141,7 +144,7 @@ export default function Hero() {
               <p data-hero-progress-label className="font-sans text-[0.62rem] tracking-[0.18em] uppercase">
                 Scroll to explore
               </p>
-              <ArrowDown className="mt-1 h-4 w-4" aria-hidden="true" />
+              <ArrowDown className="mt-1 h-3.5 w-3.5" aria-hidden="true" />
             </div>
             <span className="sr-only">Scroll</span>
           </div>

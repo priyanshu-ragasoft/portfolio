@@ -526,8 +526,8 @@ export default function FloatingChatbot() {
 
                 <div
                   className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-xs shadow-md ${msg.sender === 'user'
-                      ? 'bg-bronze text-paper rounded-br-none'
-                      : 'border border-white/10 bg-[#16171c] text-[#EDE7DE] rounded-bl-none'
+                    ? 'bg-bronze text-paper rounded-br-none'
+                    : 'border border-white/10 bg-[#16171c] text-[#EDE7DE] rounded-bl-none'
                     }`}
                 >
                   {/* Formatted Markdown-like Text Rendering */}
@@ -710,8 +710,8 @@ export default function FloatingChatbot() {
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className={`relative flex h-16 items-center justify-end rounded-full border border-bronze/60 bg-[#161513] p-1.5 shadow-[0_16px_45px_rgba(0,0,0,0.5)] backdrop-blur-2xl transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-bronze hover:bg-[#1c1a17] hover:shadow-[0_20px_55px_rgba(189,147,76,0.35)] active:scale-95 cursor-pointer overflow-hidden ${isOpen
-              ? 'w-16 ring-2 ring-bronze ring-offset-2 ring-offset-[#0c0d10]'
-              : 'w-16 group-hover:w-[176px]'
+            ? 'w-16 ring-2 ring-bronze ring-offset-2 ring-offset-[#0c0d10]'
+            : 'w-16 group-hover:w-[176px]'
             }`}
           aria-label={isOpen ? 'Close Live Chat' : 'Open Live Chat - Ask Gilbert'}
         >

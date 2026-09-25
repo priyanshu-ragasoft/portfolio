@@ -17,25 +17,37 @@ export default function PageMotion() {
     const scope = markerRef.current?.closest('[data-motion-root]')
     if (!scope) return undefined
 
-    playHero(scope)
-    initRoadmap(scope)
-    initScenes(scope)
-    initScrollReveals(scope)
-    initTextReveals(scope)
-    initImageMotion(scope)
-    const releaseChunks = initDisintegration(scope)
-    const release = initInteractions(scope)
+    const runMotion = () => {
+      playHero(scope)
+      initRoadmap(scope)
+      initScenes(scope)
+      initScrollReveals(scope)
+      initTextReveals(scope)
+      initImageMotion(scope)
+      const releaseChunks = initDisintegration(scope)
+      const release = initInteractions(scope)
 
-    const refresh = () => ScrollTrigger.refresh()
-    scope.querySelectorAll('img').forEach((img) => {
-      if (!img.complete) img.addEventListener('load', refresh, { once: true })
-    })
-    requestAnimationFrame(refresh)
+      const refresh = () => ScrollTrigger.refresh()
+      scope.querySelectorAll('img').forEach((img) => {
+        if (!img.complete) img.addEventListener('load', refresh, { once: true })
+      })
+      requestAnimationFrame(refresh)
 
-    return () => {
-      releaseChunks?.()
-      release?.()
-      scope.querySelectorAll('img').forEach((img) => img.removeEventListener('load', refresh))
+      return () => {
+        releaseChunks?.()
+        release?.()
+        scope.querySelectorAll('img').forEach((img) => img.removeEventListener('load', refresh))
+      }
+    }
+
+    if (typeof document !== 'undefined' && document.documentElement.classList.contains('is-intro')) {
+      const onIntroDone = () => {
+        runMotion()
+      }
+      window.addEventListener('intro:done', onIntroDone, { once: true })
+      return () => window.removeEventListener('intro:done', onIntroDone)
+    } else {
+      return runMotion()
     }
   }, [])
 
