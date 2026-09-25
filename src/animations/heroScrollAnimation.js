@@ -129,10 +129,10 @@ export function buildHeroScrollTimeline(section, mode) {
     })
   }
 
-  if (kicker) timeline.to(kicker, { autoAlpha: 0, duration: 0.4 }, 0.2)
-  if (copy) timeline.to(copy, { autoAlpha: 0, duration: 0.4 }, 0.24)
-  if (actions.length) timeline.to(actions, { autoAlpha: 0, duration: 0.4, stagger: 0.04 }, 0.28)
-  if (indicator) timeline.to(indicator, { autoAlpha: 0, duration: 0.3 }, 0.2)
+  if (kicker) timeline.fromTo(kicker, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.4 }, 0.2)
+  if (copy) timeline.fromTo(copy, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.4 }, 0.24)
+  if (actions.length) timeline.fromTo(actions, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.4, stagger: 0.04 }, 0.28)
+  if (indicator) timeline.fromTo(indicator, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3 }, 0.2)
   if (sweep) timeline.set(sweep, { opacity: 0 }, 0)
   if (bloom) timeline.set(bloom, { opacity: 0 }, 0)
 
@@ -143,4 +143,6 @@ export function buildHeroScrollTimeline(section, mode) {
 export function buildHeroScrollReduced(section) {
   const stage = section.querySelector('[data-hero-stage]')
   if (stage) gsap.set(stage, { autoAlpha: 1, backgroundColor: 'transparent' })
+  const actions = collect(section, '[data-hero-action]')
+  if (actions.length) gsap.set(actions, { autoAlpha: 1, opacity: 1, y: 0 })
 }

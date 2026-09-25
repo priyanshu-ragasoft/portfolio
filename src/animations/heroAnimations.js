@@ -20,8 +20,8 @@ function buildHero(section, compact) {
   if (lines.length) gsap.set(lines, { yPercent: 110 })
   if (kicker) gsap.set(kicker, { opacity: 0, y: distance(18, compact) })
   if (copy) gsap.set(copy, { opacity: 0, y: distance(24, compact) })
-  if (actions.length) gsap.set(actions, { opacity: 0, y: distance(16, compact) })
-  if (indicator) gsap.set(indicator, { opacity: 0, y: distance(10, compact) })
+  if (actions.length) gsap.set(actions, { opacity: 0, autoAlpha: 0, y: distance(16, compact) })
+  if (indicator) gsap.set(indicator, { opacity: 0, autoAlpha: 0, y: distance(10, compact) })
   if (image) gsap.set(image, { scale: compact ? 1.08 : 1.14, willChange: 'transform' })
   if (veil) gsap.set(veil, { opacity: 0 })
 
@@ -41,23 +41,23 @@ function buildHero(section, compact) {
   }
 
   if (kicker) {
-    timeline.to(kicker, { y: 0, opacity: 1, duration: 0.7 }, 0.35)
+    timeline.to(kicker, { y: 0, opacity: 1, autoAlpha: 1, duration: 0.7 }, 0.35)
   }
 
   if (lines.length) {
-    timeline.to(lines, { yPercent: 0, duration: 1.05, stagger: 0.12, ease: 'power4.out' }, 0.5)
+    timeline.to(lines, { yPercent: 0, autoAlpha: 1, duration: 1.05, stagger: 0.12, ease: 'power4.out' }, 0.5)
   }
 
   if (copy) {
-    timeline.to(copy, { y: 0, opacity: 1, duration: 0.8 }, 0.95)
+    timeline.to(copy, { y: 0, opacity: 1, autoAlpha: 1, duration: 0.8 }, 0.95)
   }
 
   if (actions.length) {
-    timeline.to(actions, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1 }, 1.15)
+    timeline.to(actions, { y: 0, opacity: 1, autoAlpha: 1, duration: 0.6, stagger: 0.1 }, 1.15)
   }
 
   if (indicator) {
-    timeline.to(indicator, { opacity: 1, y: 0, duration: 0.6 }, 1.35)
+    timeline.to(indicator, { opacity: 1, autoAlpha: 1, y: 0, duration: 0.6 }, 1.35)
   }
 
   if (bar) {
