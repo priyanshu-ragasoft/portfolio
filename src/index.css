@@ -89,6 +89,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+
     [data-image-mask],
     [data-hero-veil] {
       display: none;
@@ -96,6 +97,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -118,6 +120,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   [data-scroll-reveal],
   [data-scroll-reveal] .sr-chunk {
     opacity: 1 !important;
@@ -126,16 +129,14 @@
 }
 
 .value-plaque {
-  clip-path: polygon(
-    1.35rem 0,
-    calc(100% - 1.35rem) 0,
-    100% 1.35rem,
-    100% calc(100% - 1.35rem),
-    calc(100% - 1.35rem) 100%,
-    1.35rem 100%,
-    0 calc(100% - 1.35rem),
-    0 1.35rem
-  );
+  clip-path: polygon(1.35rem 0,
+      calc(100% - 1.35rem) 0,
+      100% 1.35rem,
+      100% calc(100% - 1.35rem),
+      calc(100% - 1.35rem) 100%,
+      1.35rem 100%,
+      0 calc(100% - 1.35rem),
+      0 1.35rem);
 }
 
 [data-image-mask] {
@@ -372,16 +373,19 @@
     transform-origin: center;
     animation: journey-pulse 2.2s ease-out infinite;
   }
+
   [data-journey-marker].is-active [data-marker-ring] {
     stroke-width: 1.2;
     stroke: #f0d7a2;
     opacity: 1;
     filter: drop-shadow(0 0 6px #C9A15A);
   }
+
   [data-journey-marker].is-active [data-marker-dot] {
     fill: #ffffff;
     filter: drop-shadow(0 0 8px #C9A15A);
   }
+
   [data-journey-marker].is-active [data-marker-label] {
     fill: #ffffff;
     font-weight: 700;
@@ -393,6 +397,7 @@
 [data-journey-chapter] {
   pointer-events: none;
 }
+
 [data-journey-chapter][aria-hidden="false"] {
   pointer-events: auto;
 }
