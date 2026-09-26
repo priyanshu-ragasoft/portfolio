@@ -84,13 +84,14 @@ export default function Navbar() {
 
   const handleNavClick = (e, to) => {
     close()
+    const smoothEase = (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
     if (to.startsWith('/#') && pathname === '/') {
       const hashTarget = document.querySelector(to.slice(1))
       if (hashTarget) {
         e.preventDefault()
         window.history.pushState(null, '', to)
         if (lenis) {
-          lenis.scrollTo(hashTarget, { offset: -80, duration: 1.1 })
+          lenis.scrollTo(hashTarget, { offset: -80, duration: 1.25, easing: smoothEase })
         } else {
           hashTarget.scrollIntoView({ behavior: 'smooth' })
         }
@@ -104,7 +105,7 @@ export default function Navbar() {
         // Already on this page: smooth scroll to the top
         e.preventDefault()
         if (lenis) {
-          lenis.scrollTo(0, { duration: 0.9 })
+          lenis.scrollTo(0, { duration: 1.1, easing: smoothEase })
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }

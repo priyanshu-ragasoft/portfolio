@@ -34,32 +34,32 @@ function _init() {
   // Respect reduced motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {}
 
-  // Skip on pure-touch devices — native momentum feels better
+  // Silky smooth scroll configuration
   lenis = new Lenis({
-    lerp: 0.08,
-    duration: 1.2,
+    duration: 1.25,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     orientation: 'vertical',
     gestureOrientation: 'vertical',
     smoothWheel: true,
     smoothTouch: false,
-    wheelMultiplier: 0.95,
-    touchMultiplier: 1.8,
+    wheelMultiplier: 1.0,
+    touchMultiplier: 1.6,
     infinite: false,
   })
 
-  // Use a named ticker callback so we can remove it precisely later
+  // Synchronize Lenis strictly with GSAP ticker loop
   function onTick(time) {
     lenis?.raf(time * 1000)
   }
 
   gsap.ticker.add(onTick)
-  gsap.ticker.lagSmoothing(500, 33)
+  // Lag smoothing 0 ensures no sudden jumps or frame stutters when scrolling
+  gsap.ticker.lagSmoothing(0)
 
-  // Let ScrollTrigger know when the scroll position changed
+  // Notify ScrollTrigger on every frame update
   lenis.on('scroll', ScrollTrigger.update)
 
-  // Refresh once fonts and images are ready
+  // Refresh ScrollTrigger once fonts and DOM settle
   document.fonts?.ready?.then(() => ScrollTrigger.refresh())
   window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
 

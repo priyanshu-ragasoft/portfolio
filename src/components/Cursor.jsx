@@ -35,8 +35,8 @@ export default function Cursor() {
     // Initial position off-screen so it doesn't flash at 0,0 on mount
     gsap.set(cursor, { x: -100, y: -100, opacity: 0 })
 
-    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.5,  ease: 'power3.out' })
-    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.45, ease: 'power3.out' })
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.2, ease: 'power3.out' })
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.2, ease: 'power3.out' })
 
     let moved = false
 
@@ -45,23 +45,23 @@ export default function Cursor() {
       yTo(e.clientY)
       if (!moved) {
         moved = true
-        gsap.to(cursor, { opacity: 1, duration: 0.3 })
+        gsap.to(cursor, { opacity: 1, duration: 0.25, ease: 'power2.out' })
       }
     }
 
     const over = (e) => {
       // Check project first (higher specificity than generic link)
       const isProject = e.target.closest?.('[data-tilt], [data-project]')
-      const isInteractive = !isProject && e.target.closest?.('a, button, [data-button]')
+      const isInteractive = !isProject && e.target.closest?.('a, button, [data-button], input, textarea, select')
 
       if (isProject) {
-        gsap.to(cursor, { scale: 3.2, duration: 0.4, ease: 'power3.out', overwrite: 'auto' })
-        if (label) gsap.to(label, { opacity: 1, scale: 1, duration: 0.35, ease: 'power3.out', overwrite: 'auto' })
+        gsap.to(cursor, { scale: 2.8, duration: 0.3, ease: 'power3.out', overwrite: 'auto' })
+        if (label) gsap.to(label, { opacity: 1, scale: 1, duration: 0.25, ease: 'power3.out', overwrite: 'auto' })
       } else if (isInteractive) {
-        gsap.to(cursor, { scale: 2.1, duration: 0.3, ease: 'power2.out', overwrite: 'auto' })
+        gsap.to(cursor, { scale: 1.85, duration: 0.25, ease: 'power2.out', overwrite: 'auto' })
         if (label) gsap.to(label, { opacity: 0, scale: 0.5, duration: 0.2, overwrite: 'auto' })
       } else {
-        gsap.to(cursor, { scale: 1, duration: 0.35, ease: 'power2.out', overwrite: 'auto' })
+        gsap.to(cursor, { scale: 1, duration: 0.28, ease: 'power2.out', overwrite: 'auto' })
         if (label) gsap.to(label, { opacity: 0, scale: 0.5, duration: 0.2, overwrite: 'auto' })
       }
     }

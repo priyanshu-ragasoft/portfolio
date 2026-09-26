@@ -15,9 +15,30 @@
 
 @layer base {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: auto !important;
     overflow-x: clip;
     -webkit-tap-highlight-color: transparent;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 
   html.is-intro,
@@ -44,6 +65,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
+  }
+
+  /* Buttery smooth GPU transform helper */
+  .will-change-transform {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   ::selection {

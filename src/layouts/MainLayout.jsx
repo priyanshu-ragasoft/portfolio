@@ -28,9 +28,10 @@ function PageFallback() {
 
 function scrollToTarget(target, offset = -80) {
   if (!target) return
+  const smoothEase = (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
   if (target === 0) {
     if (lenis) {
-      lenis.scrollTo(0, { immediate: false, duration: 1 })
+      lenis.scrollTo(0, { immediate: false, duration: 1.2, easing: smoothEase })
       return
     }
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -38,7 +39,7 @@ function scrollToTarget(target, offset = -80) {
   }
   const top = target.getBoundingClientRect().top + window.scrollY + offset
   if (lenis) {
-    lenis.scrollTo(top, { immediate: false, duration: 1.1 })
+    lenis.scrollTo(top, { immediate: false, duration: 1.25, easing: smoothEase })
     return
   }
   window.scrollTo({ top, behavior: 'smooth' })
