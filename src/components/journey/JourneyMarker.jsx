@@ -1,40 +1,46 @@
 const placements = {
-  right: { x: 26, labelY: 0, noteY: 13, anchor: 'start' },
-  left: { x: -26, labelY: 0, noteY: 13, anchor: 'end' },
-  up: { x: 0, labelY: -22, noteY: -10, anchor: 'middle' },
-  down: { x: 0, labelY: 20, noteY: 32, anchor: 'middle' },
+  right: { x: 12, labelY: -1, noteY: 9, anchor: 'start' },
+  left: { x: -12, labelY: -1, noteY: 9, anchor: 'end' },
+  up: { x: 0, labelY: -9, noteY: -5, anchor: 'middle' },
+  down: { x: 0, labelY: 11, noteY: 18, anchor: 'middle' },
 }
 
 export default function JourneyMarker({ pin, label, note, align = 'right' }) {
+  const isMini = pin.mini
   const place = placements[align] || placements.right
+
   return (
     <g data-journey-marker={pin.id} transform={`translate(${pin.x} ${pin.y})`} className="pointer-events-auto">
+      <title>{label}</title>
       <g data-marker-scale>
-        <circle data-marker-pulse cx="0" cy="0" r="8" fill="none" stroke="#C9A15A" strokeWidth="0.7" opacity="0" />
-        <circle data-marker-ring cx="0" cy="0" r="5.5" fill="none" stroke="#C9A15A" strokeWidth="0.6" opacity="0.7" />
-        <circle data-marker-dot cx="0" cy="0" r="2.4" fill="#C9A15A" />
+        <circle data-marker-pulse cx="0" cy="0" r={isMini ? 4.5 : 7.5} fill="none" stroke="#C9A15A" strokeWidth="0.6" opacity="0" />
+        <circle data-marker-ring cx="0" cy="0" r={isMini ? 3 : 5} fill="none" stroke="#C9A15A" strokeWidth="0.5" opacity={isMini ? 0.6 : 0.8} />
+        <circle data-marker-dot cx="0" cy="0" r={isMini ? 1.5 : 2.2} fill="#C9A15A" />
       </g>
-      <text
-        data-marker-label
-        x={place.x}
-        y={note ? place.labelY : 4}
-        textAnchor={place.anchor}
-        fill="#f4f0e8"
-        fontSize="11"
-        letterSpacing="1.8"
-        className="font-sans uppercase"
-      >
-        {label}
-      </text>
+      {label ? (
+        <text
+          data-marker-label
+          x={place.x}
+          y={note ? place.labelY : 3}
+          textAnchor={place.anchor}
+          fill={isMini ? '#eddcc4' : '#f4f0e8'}
+          fontSize={isMini ? '7' : '9.5'}
+          fontWeight={isMini ? '600' : '700'}
+          letterSpacing={isMini ? '0.5' : '1.4'}
+          className="font-sans uppercase select-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]"
+        >
+          {label}
+        </text>
+      ) : null}
       {note ? (
         <text
           x={place.x}
           y={place.noteY}
           textAnchor={place.anchor}
           fill="#C9A15A"
-          fontSize="8.5"
-          letterSpacing="1.2"
-          className="font-sans uppercase"
+          fontSize="7.5"
+          letterSpacing="1"
+          className="font-sans uppercase select-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]"
         >
           {note}
         </text>

@@ -196,7 +196,7 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
             {/* Micro Year / Category Tag */}
             <span
               data-journey-year={chapter.id}
-              className="mt-4 font-sans text-[0.48rem] xs:text-[0.54rem] sm:mt-5 sm:text-[0.62rem] font-medium tracking-[0.08em] sm:tracking-[0.14em] text-[#8a847c] uppercase transition-colors duration-300 group-hover:text-[#f4f0e8]"
+              className="mt-3.5 sm:mt-5 font-sans text-[0.46rem] xs:text-[0.52rem] sm:text-[0.62rem] font-medium tracking-[0.04em] sm:tracking-[0.14em] text-[#8a847c] uppercase transition-colors duration-300 group-hover:text-[#f4f0e8] whitespace-nowrap"
             >
               {chapter.year}
             </span>
@@ -212,7 +212,7 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
               />
               <span
                 data-journey-step-loc={chapter.id}
-                className="font-sans text-[0.48rem] xs:text-[0.52rem] sm:text-[0.64rem] tracking-[0.04em] sm:tracking-[0.08em] whitespace-nowrap text-[#8a847c] uppercase transition-colors duration-300 group-hover:text-[#C9A15A] max-w-[38px] xs:max-w-[48px] sm:max-w-none truncate sm:overflow-visible"
+                className="font-sans text-[0.46rem] xs:text-[0.52rem] sm:text-[0.64rem] tracking-[0.04em] sm:tracking-[0.08em] whitespace-nowrap text-[#8a847c] uppercase transition-colors duration-300 group-hover:text-[#C9A15A]"
               >
                 {chapter.shortLocation}
               </span>
@@ -223,5 +223,3 @@ export default function JourneyTimeline({ orientation = 'horizontal' }) {
     </nav>
   )
 }
-
-

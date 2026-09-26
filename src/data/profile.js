@@ -94,59 +94,62 @@ export const introductionPillars = [
 ]
 
 export const biography = [
-  'Gilbert Kevin Jimmy Kwizera was born on 30 November 1971 in Kampala, Uganda. Poverty, illness, and limited access to basic services were part of ordinary life around him. That early proximity to hardship shaped a lasting sense of responsibility toward people who are not always heard.',
-  'He earned a Bachelor of Commerce in Information Systems, then a master’s degree in finance. The studies were a way of understanding how institutions work, how resources move, and how systems can either support people or fail them. He describes learning as preparation for service, not as a private advantage.',
-  'He is an international consultant and social entrepreneur and lives in the United Arab Emirates. His professional work and his humanitarian work sit together: planning, governance, and financial care are how programmes stay credible, transparent, and able to last.',
+  'Gilbert Kevin Jimmy Kwizera was born in 1971 in Uganda. Growing up with an early proximity to community hardship, he developed a profound sense of purpose and commitment toward uplifting vulnerable communities through enterprise and service.',
+  'He pursued higher education in India, completing his Pre-University Course (PUC) at Mahaveera College (1993–1995) and his Bachelor of Business Management (BBM) at Mangalore University (1996–1999), later earning a Bachelor of Commerce in Information Systems (BCOMIS) from Sikkim Manipal University in 2012. This integrated foundation in business governance and information technology shaped his modern entrepreneurial vision.',
+  'Returning to business in 2000, he pioneered one of Uganda’s first internet cafés, soon diversifying into woodworks, real estate, manufacturing, procurement and sourcing, financing, motor vehicle sales, IT solutions, and education. In 2010, he ventured into the gold business, expanding mineral trade and regional resource initiatives.',
+  'In 2014, he established the Cancer Charity Foundation (CCF) and Haven Welfare, dedicating resources to dignity-based cancer patient support and compassionate rehabilitation. Settling in Dubai in 2016, he established an international hub for gold trading, consulting, and proprietary digital asset management.',
+  'Between 2022 and 2026, his work expanded into blockchain development and exchange infrastructure, leading to the launch of the PIO Ecosystem and ISBET Brainery in 2026, alongside global travels across Singapore, Indonesia, Hong Kong, China, Turkey, Qatar, South Africa, Spain, France, Italy, Kenya, Rwanda, Sudan, Ethiopia, Tanzania, Congo, Burundi, and Thailand.',
 ]
 
 export const educationNotes = [
-  'A Bachelor of Commerce in Information Systems gave him a practical view of how organisations function and how problems can be structured.',
-  'A master’s degree in finance added discipline around sustainability, accountability, and the ethical management of resources.',
-  'He has written that this background made it possible to build initiatives that are compassionate and, at the same time, sustainable and accountable.',
+  'Pre-University Course (PUC) at Mahaveera College (1993–1995).',
+  'Bachelor of Business Management (BBM) from Mangalore University (1996–1999).',
+  'Bachelor of Commerce in Information Systems (BCOMIS) from Sikkim Manipal University (2012).',
+  'A rigorous foundation combining institutional management, commercial strategy, and modern digital systems.',
 ]
 
 export const journey = [
   {
-    date: '30 November 1971',
+    date: '1971',
     place: 'Uganda',
     title: 'Born in Uganda',
-    text: 'Born in Kampala, Uganda, into a setting where poverty, sickness, and limited access to basic facilities formed an early proximity to hardship and a lifelong duty toward vulnerable communities.',
+    text: 'Born in Uganda in 1971, cultivating early values of resilience, resourcefulness, and a lifelong commitment toward uplifting vulnerable communities through enterprise and service.',
   },
   {
-    date: 'Studies',
-    place: 'Bangalore',
-    title: 'Study in India Bangalore',
-    text: 'He completed a Bachelor of Commerce in Information Systems and later a master’s degree in finance in Bangalore, India, preparing himself to lead with institutional governance and sustainability.',
+    date: '1993–1999',
+    place: 'India',
+    title: 'Higher Studies in India',
+    text: 'Pursued higher education in India from 1993 to 1999: completed his PUC at Mahaveera College (1993–1995) and his Bachelor of Business Management (BBM) at Mangalore University (1996–1999).',
   },
   {
-    date: 'Resource Development',
+    date: '2000 onward',
     place: 'Uganda',
-    title: 'Mine in Uganda',
-    text: 'Engaged in mineral development and responsible resource initiatives in Uganda, focusing on ethical extraction standards, local job creation, and dignity for mining communities.',
+    title: 'Internet Pioneer & Multi-Industry Growth',
+    text: 'Returned to Uganda in 2000 and launched one of the country’s first internet cafés, expanding his business into woodworks, real estate, manufacturing, procurement & sourcing, financing, motor vehicle sales, IT solutions, and education.',
   },
   {
-    date: 'Pan-African Outreach',
-    place: 'Ethiopia',
-    title: 'Mine in Ethiopia',
-    text: 'Extended mining operations and cross-border trade initiatives to Ethiopia, advocating for sustainable natural resource management and equitable regional cooperation.',
+    date: '2010',
+    place: 'Uganda',
+    title: 'Gold Business in Uganda',
+    text: 'Entered the gold business in 2010 in Uganda, developing mineral operations, commercial trading channels, and regional supply chain networks.',
   },
   {
-    date: 'United Arab Emirates',
+    date: '2014',
+    place: 'East Africa',
+    title: 'Cancer Charity Foundation & Haven Welfare',
+    text: 'Established the Cancer Charity Foundation (CCF) and Haven Welfare in 2014, dedicating vital resources to cancer patient treatments, advocacy, and community recovery.',
+  },
+  {
+    date: '2016 onward',
     place: 'Dubai',
-    title: 'Business in Dubai',
-    text: 'Established his international consulting and social enterprise base in the United Arab Emirates, advising on ethical commerce, transparent governance, and long-term people-centred solutions.',
+    title: 'Settled in Dubai & Asset Management',
+    text: 'Settled in Dubai in 2016. Since 2016, he has worked in international gold sales, strategic management consulting, and proprietary digital asset management.',
   },
   {
-    date: 'Pan-African Ties',
-    place: 'South Africa',
-    title: 'Traveled in South Africa',
-    text: 'Extensive travels and diplomatic missions across South Africa, fostering bilateral alliances, pan-African philanthropy, and cross-continental community empowerment.',
-  },
-  {
-    date: 'Global Relations',
-    place: 'Russia',
-    title: 'Traveled in Russia',
-    text: 'Travelled to Russia for high-level international dialogue and global consulting, connecting international diplomacy with responsible investments and humanitarian duty.',
+    date: '2022–2026',
+    place: 'Global',
+    title: 'Blockchain, PIO Ecosystem & Global Travels',
+    text: 'Led blockchain and exchange projects (2022–2026), launching the PIO Ecosystem and ISBET Brainery in 2026, alongside travels across 18 countries: Singapore, Indonesia, Hong Kong, China, Turkey, Qatar, South Africa, Spain, France, Italy, Kenya, Rwanda, Sudan, Ethiopia, Tanzania, DR Congo, Burundi, and Thailand.',
   },
 ]
 

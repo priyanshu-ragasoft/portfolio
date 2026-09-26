@@ -133,12 +133,23 @@ function getAutoReply(userText) {
   }
 
   // 10. Education / Qualifications / Degrees
-  if (query.includes('education') || query.includes('degree') || query.includes('university') || query.includes('study') || query.includes('qualification') || query.includes('finance')) {
+  if (query.includes('education') || query.includes('degree') || query.includes('university') || query.includes('study') || query.includes('qualification') || query.includes('mahaveera') || query.includes('mangalore') || query.includes('sikkim') || query.includes('manipal')) {
     return {
-      text: `Gilbert Kwizera's academic background combines technology and institutional finance:\n\n🎓 **Bachelor of Commerce in Information Systems**\n🎓 **Master's Degree in Finance**\n\nHe uses this financial rigor to ensure that humanitarian initiatives are sustainable, transparent, and built to last.`,
+      text: `**Gilbert Kevin Jimmy Kwizera's** academic background includes:\n\n🎓 **Pre-University Course (PUC)** — Mahaveera College (1993–1995)\n🎓 **Bachelor of Business Management (BBM)** — Mangalore University (1996–1999)\n🎓 **Bachelor of Commerce in Information Systems (BCOMIS)** — Sikkim Manipal University (2012)\n\nThis strong foundation in business leadership, commerce, and digital systems has driven his multi-sector enterprises and philanthropic initiatives.`,
       actions: [
-        { label: 'Read Biography', type: 'link', value: '/about' },
-        { label: 'View Timeline', type: 'link', value: '/#journey' },
+        { label: 'Read Full Biography', type: 'link', value: '/about' },
+        { label: 'View Timeline Journey', type: 'link', value: '/#journey' },
+      ],
+    }
+  }
+
+  // 10b. Journey / Career History / Businesses / Gold / Dubai / Travels
+  if (query.includes('journey') || query.includes('history') || query.includes('gold') || query.includes('cafe') || query.includes('internet') || query.includes('travel') || query.includes('blockchain') || query.includes('pio')) {
+    return {
+      text: `**The Journey Across Borders of Gilbert Kevin Jimmy Kwizera:**\n\n• **1971**: Born in Uganda.\n• **1993–1999**: Higher Studies in India (Mahaveera College PUC 1993–1995, Mangalore University BBM 1996–1999).\n• **2000**: Returned to Uganda and started one of the country's first internet cafés, expanding into woodworks, real estate, manufacturing, procurement & sourcing, financing, motor vehicle sales, IT solutions, and education.\n• **2010**: Entered the gold business in Uganda.\n• **2014**: Founded the *Cancer Charity Foundation (CCF)* and *Haven Welfare*.\n• **2016**: Settled in Dubai, working in gold sales, consulting, and proprietary digital asset management.\n• **2016 onward (Global Travels)**: Travelled across 18 countries: **Singapore, Indonesia, Hong Kong, China, Turkey, Qatar, South Africa, Spain, France, Italy, Kenya, Rwanda, Sudan, Ethiopia, Tanzania, The Democratic Republic of the Congo, Burundi, and Thailand**.\n• **2022–2026**: Blockchain and Exchange projects.\n• **2026**: Launch of the *PIO Ecosystem* and *ISBET Brainery*.`,
+      actions: [
+        { label: 'Explore Interactive Journey', type: 'link', value: '/#journey' },
+        { label: 'View Projects', type: 'link', value: '/projects' },
       ],
     }
   }

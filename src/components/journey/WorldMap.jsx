@@ -62,7 +62,7 @@ export default function WorldMap() {
         </g>
       </svg>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,#0D0D0C_98%)]" />
-      {journeyRoutes.map((route) => (
+      {journeyRoutes.filter((route) => route.hasPopup !== false).map((route) => (
         <div
           key={route.id}
           data-route-popup={route.id}

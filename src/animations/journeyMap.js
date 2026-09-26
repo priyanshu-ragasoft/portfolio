@@ -40,8 +40,8 @@ export function addCameraTweens(timeline, root, baseZoom = 1.18) {
     if (index === 0) return
 
     let targetZoom = zoom
-    if (chapter.id === 'travel-russia') targetZoom = zoom * 1.02
-    else if (chapter.id === 'travel-south-africa') targetZoom = zoom * 0.98
+    if (chapter.id === 'global-blockchain') targetZoom = zoom * 0.95
+    else if (chapter.id === 'studies-india') targetZoom = zoom * 1.05
 
     const pose = getCameraPose(chapter.camera, targetZoom)
 

@@ -15,19 +15,24 @@
     rel="stylesheet" />
   <title>Gilbert Kevin Jimmy Kwizera</title>
   <style>
+    html,
+    body {
+      background-color: #050508;
+      margin: 0;
+      padding: 0;
+    }
     html.is-intro,
     html.is-intro body {
       background-color: #050508 !important;
     }
-    html, body {
+    html:not(.is-intro),
+    html:not(.is-intro) body {
       background-color: #f3efe8;
-      margin: 0;
-      padding: 0;
     }
   </style>
 </head>
 
-<body class="bg-paper text-ink">
+<body class="bg-[#050508] text-ink">
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

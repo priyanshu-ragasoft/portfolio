@@ -23,6 +23,7 @@
   html.is-intro,
   html.is-intro body {
     overflow: hidden;
+    background-color: #050508 !important;
   }
 
   html.is-intro [data-floating-chatbot] {

@@ -311,10 +311,7 @@ export default function Contact({ standalone = false }) {
                     </h3>
                     <p className="text-xs text-muted">Gilbert Kevin Jimmy Kwizera Global Practice</p>
                   </div>
-                  <div className="flex items-center gap-1.5 rounded-lg border border-line bg-paper/80 px-2.5 py-1 text-xs font-mono text-ink">
-                    <Clock className="h-3.5 w-3.5 text-bronze" />
-                    <span>{dubaiTime || '12:00 PM GST'}</span>
-                  </div>
+
                 </div>
 
                 {/* Quick Interactive Contact Rows */}

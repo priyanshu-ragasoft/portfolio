@@ -72,17 +72,24 @@ export function placeVisiblePopups(root) {
 
 export function addRouteMotion(timeline, root) {
   const camera = root.querySelector('[data-journey-camera]')
-  journeyRoutes.forEach((route, index) => {
+  let lastActivePopup = null
+
+  journeyRoutes.forEach((route) => {
     const group = root.querySelector(`[data-journey-route="${route.id}"]`)
     if (!group) return
     const path = group.querySelector('[data-route-draw]')
     const popup = root.querySelector(`[data-route-popup="${route.id}"]`)
     draw(timeline, path, group.querySelector('[data-route-traveler]'), popup, camera, route.at, route.duration)
-    if (index === 0) return
-    const previous = root.querySelector(`[data-route-popup="${journeyRoutes[index - 1].id}"]`)
-    if (previous) timeline.to(previous, { opacity: 0, duration: 0.16 }, route.at)
+    if (popup) {
+      if (lastActivePopup && lastActivePopup !== popup) {
+        timeline.to(lastActivePopup, { opacity: 0, duration: 0.16 }, route.at)
+      }
+      lastActivePopup = popup
+    }
   })
-  const last = journeyRoutes[journeyRoutes.length - 1]
-  const lastPopup = root.querySelector(`[data-route-popup="${last.id}"]`)
-  if (lastPopup) timeline.to(lastPopup, { opacity: 0, duration: 0.25 }, last.at + last.duration)
+
+  if (lastActivePopup) {
+    const last = journeyRoutes[journeyRoutes.length - 1]
+    timeline.to(lastActivePopup, { opacity: 0, duration: 0.25 }, last.at + last.duration)
+  }
 }

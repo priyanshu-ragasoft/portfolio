@@ -44,10 +44,6 @@ function scrollToTarget(target, offset = -80) {
   window.scrollTo({ top, behavior: 'smooth' })
 }
 
-if (typeof document !== 'undefined') {
-  document.documentElement.classList.remove('is-intro')
-}
-
 export default function MainLayout() {
   const location = useLocation()
   const mainRef = useRef(null)

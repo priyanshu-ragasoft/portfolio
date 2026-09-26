@@ -19,26 +19,62 @@ import * as THREE from 'three'
 
 /* ─── Real geographic coordinates from journeyLocations.js ──────────── */
 const LOCATIONS = [
-  { id: 'kampala',     label: 'Kampala, Uganda',      lon:  32.5825, lat:  0.3476 },
-  { id: 'bangalore',   label: 'Bangalore, India',      lon:  77.5946, lat: 12.9716 },
-  { id: 'ethiopia',    label: 'Addis Ababa, Ethiopia', lon:  40.5,    lat:  9.15   },
-  { id: 'dubai',       label: 'Dubai, UAE',            lon:  55.2708, lat: 25.2048 },
-  { id: 'southafrica', label: 'South Africa',          lon:  26.2,    lat: -29.0   },
-  { id: 'russia',      label: 'Moscow, Russia',        lon:  37.6,    lat: 55.75   },
+  { id: 'kampala',     label: 'Kampala, Uganda',          lon:  32.5825, lat:   0.3476 }, // 0
+  { id: 'india',       label: 'Mangalore, India',         lon:  74.8560, lat:  12.9141 }, // 1
+  { id: 'eastafrica',  label: 'East Africa',              lon:  40.5000, lat:   8.5000 }, // 2
+  { id: 'panafrica',   label: 'Pan-Africa',               lon:  26.2000, lat: -26.0000 }, // 3
+  { id: 'dubai',       label: 'Dubai, UAE',               lon:  55.2708, lat:  25.2048 }, // 4
+  // 18 Individual Countries:
+  { id: 'qatar',       label: 'Qatar',                    lon:  51.5300, lat:  25.2800 }, // 5
+  { id: 'turkey',      label: 'Turkey',                   lon:  32.8500, lat:  39.9300 }, // 6
+  { id: 'france',      label: 'France',                   lon:   2.3522, lat:  48.8566 }, // 7
+  { id: 'spain',       label: 'Spain',                    lon:  -3.7038, lat:  40.4168 }, // 8
+  { id: 'italy',       label: 'Italy',                    lon:  12.4964, lat:  41.9028 }, // 9
+  { id: 'thailand',    label: 'Thailand',                 lon: 100.5018, lat:  13.7563 }, // 10
+  { id: 'singapore',   label: 'Singapore',                lon: 103.8198, lat:   1.3521 }, // 11
+  { id: 'indonesia',   label: 'Indonesia',                lon: 106.8456, lat:  -6.2088 }, // 12
+  { id: 'hongkong',    label: 'Hong Kong',                lon: 114.1694, lat:  22.3193 }, // 13
+  { id: 'china',       label: 'China',                    lon: 116.4074, lat:  39.9042 }, // 14
+  { id: 'kenya',       label: 'Kenya',                    lon:  36.8219, lat:  -1.2921 }, // 15
+  { id: 'rwanda',      label: 'Rwanda',                   lon:  30.0619, lat:  -1.9441 }, // 16
+  { id: 'burundi',     label: 'Burundi',                  lon:  29.3644, lat:  -3.3822 }, // 17
+  { id: 'congo',       label: 'Congo',                    lon:  15.3222, lat:  -4.3224 }, // 18
+  { id: 'tanzania',    label: 'Tanzania',                 lon:  39.2083, lat:  -6.7924 }, // 19
+  { id: 'sudan',       label: 'Sudan',                    lon:  32.5599, lat:  15.5007 }, // 20
+  { id: 'ethiopia',    label: 'Ethiopia',                 lon:  38.7578, lat:   9.0227 }, // 21
+  { id: 'southafrica', label: 'South Africa',             lon:  28.0473, lat: -26.2041 }, // 22
 ]
 
 /* Journey route pairs — match journeyLocations.js legs */
 const ROUTES = [
-  [0, 1], // Kampala → Bangalore
-  [1, 0], // Bangalore → Kampala
-  [0, 2], // Kampala → Ethiopia
-  [2, 3], // Ethiopia → Dubai
-  [3, 4], // Dubai → South Africa
-  [4, 5], // South Africa → Russia
+  [0, 1],  // Stage 2: Kampala → India
+  [1, 0],  // Stage 3: India → Uganda
+  [0, 2],  // Stage 4: Uganda → East Africa
+  [2, 3],  // Stage 5: East Africa → Pan-Africa
+  [3, 4],  // Stage 6: Pan-Africa → Dubai
+  // Stage 7: Individual Direct Routes from Dubai to all 18 Countries
+  [4, 5],  // Dubai → Qatar
+  [4, 6],  // Dubai → Turkey
+  [4, 9],  // Dubai → Italy
+  [4, 7],  // Dubai → France
+  [4, 8],  // Dubai → Spain
+  [4, 20], // Dubai → Sudan
+  [4, 21], // Dubai → Ethiopia
+  [4, 15], // Dubai → Kenya
+  [4, 16], // Dubai → Rwanda
+  [4, 17], // Dubai → Burundi
+  [4, 19], // Dubai → Tanzania
+  [4, 18], // Dubai → Congo
+  [4, 22], // Dubai → South Africa
+  [4, 10], // Dubai → Thailand
+  [4, 11], // Dubai → Singapore
+  [4, 12], // Dubai → Indonesia
+  [4, 13], // Dubai → Hong Kong
+  [4, 14], // Dubai → China
 ]
 
-/* Chapter index → location index mapping (matches handwritten sequence: 0:Uganda, 1:Bangalore, 2:Uganda Mine, 3:Ethiopia, 4:Dubai, 5:South Africa, 6:Russia) */
-const CHAPTER_TO_LOC = [0, 1, 0, 2, 3, 4, 5]
+/* Chapter index → location index mapping */
+const CHAPTER_TO_LOC = [0, 1, 0, 2, 3, 4, 4]
 
 const GLOBE_RADIUS = 1.6
 const DEG = Math.PI / 180
